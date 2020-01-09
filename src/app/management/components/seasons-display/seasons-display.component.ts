@@ -1,8 +1,9 @@
 import { combineLatest, Observable } from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ObservableInput } from 'observable-input/lib';
 
 import { Component, Input, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 import { SeasonModel } from '../../models/season.model';
 import { TeamModel } from '../../models/team.model';
@@ -29,6 +30,8 @@ export class SeasonsDisplayComponent implements OnInit {
 
   seasonsByTeam$: Observable<SeasonByTeamModel[]>;
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.seasonsByTeam$ = combineLatest(this.teams$, this.seasons$).pipe(
       map(([teams, seasons]) => {
@@ -36,6 +39,10 @@ export class SeasonsDisplayComponent implements OnInit {
       }),
       tap(seasonsByTeam => console.log('FMN : seasonsByTeam', seasonsByTeam))
     );
+  }
+
+  configureSeason(seasonId) {
+    this.router.navigate(['/season', seasonId]);
   }
 }
 

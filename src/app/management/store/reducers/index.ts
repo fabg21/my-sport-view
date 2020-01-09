@@ -94,3 +94,8 @@ export const getSeasonsLoading = createSelector(
   getSeasonsState,
   fromSeasons.getSeasonsLoading
 );
+
+export const getSelectedSeason = createSelector(
+  getAllSeasons,
+  (seasons, props) => seasons.find(season => season.id === props.id)
+);

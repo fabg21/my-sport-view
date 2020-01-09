@@ -1,0 +1,11 @@
+<div class="player-create-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-icon fxFlex="3">edit</mat-icon>
+    <h2 fxFlex>SEASON CONFIGURATION</h2>
+  </div>
+  <div>
+
+    {{season$ | async | json}}
+
+  </div>
+</div>

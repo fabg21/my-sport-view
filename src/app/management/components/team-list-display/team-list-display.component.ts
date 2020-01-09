@@ -22,7 +22,6 @@ export class TeamListDisplayComponent {
   ) {}
 
   editTeam(row) {
-    console.log('FMN row selected ', row);
     this.router.navigate(['/edit-team', row.id]);
   }
 }

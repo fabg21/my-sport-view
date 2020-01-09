@@ -9,8 +9,8 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-list>
-      <mat-list-item *ngFor="let season of seasonByTeam.seasons">
-        <mat-icon mat-list-icon>folder</mat-icon>
+      <mat-list-item *ngFor="let season of seasonByTeam.seasons" (click)="configureSeason(season.id)">
+        <mat-icon mat-list-icon>calendar_today</mat-icon>
         <h4 mat-line>Season : {{season.debut}} / {{season.fin}}</h4>
       </mat-list-item>
     </mat-list>

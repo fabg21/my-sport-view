@@ -8,7 +8,7 @@ import {
   CreatePlayerComponent,
   CreateTeamComponent,
   EditPlayerComponent, EditTeamComponent,
-  PlayerListComponent,
+  PlayerListComponent, SeasonComponent,
   TeamListComponent
 } from './management/containers';
 import {ErrorComponent} from './error/error.component';
@@ -87,8 +87,16 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'seasons-configuration',
+        path: 'seasons',
         component: SeasonsComponent,
+        data: {
+          authorities: ['ROLE_ADMIN'],
+        },
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'season/:id',
+        component: SeasonComponent,
         data: {
           authorities: ['ROLE_ADMIN'],
         },
