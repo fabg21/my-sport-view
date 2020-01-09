@@ -1,15 +1,13 @@
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { BackendService } from '../../common/service/backend.service';
+import { BackendService } from '../../../core/services/backend.service';
 import { SpendingsModel } from '../model/spendings.model';
-import { environment } from '../../../environments/environment';
-
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class SpendingsService extends BackendService {
-
   servicesUrl = environment.servicesUrl;
   spendingsUrl = this.servicesUrl + '/mysportfinancial/api/spendings';
 

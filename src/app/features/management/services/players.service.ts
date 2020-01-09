@@ -2,13 +2,12 @@ import { Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
-import { BackendService } from '../../common/service/backend.service';
+import { BackendService } from '../../../core/services/backend.service';
 import { PlayerModel } from '../models/player.model';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class PlayersService extends BackendService {
-
   servicesApi = environment.servicesUrl;
   playerUrl = this.servicesApi + '/mysportplayers/api/players';
 

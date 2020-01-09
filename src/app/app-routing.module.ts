@@ -1,32 +1,34 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ShellComponent} from './shell/shell.component';
-import {LoginComponent} from './login/login.component';
-import {AuthGuard} from './common/guard/auth.guard';
-import {FinancialComponent} from './financial/containers/financial/financial.component';
+import { ShellComponent } from './core/shell/shell.component';
+import { LoginComponent } from './core/login/login.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { FinancialComponent } from './features/financial/containers/financial/financial.component';
 import {
   CreatePlayerComponent,
   CreateTeamComponent,
-  EditPlayerComponent, EditTeamComponent,
-  PlayerListComponent, SeasonComponent,
+  EditPlayerComponent,
+  EditTeamComponent,
+  PlayerListComponent,
+  SeasonComponent,
   TeamListComponent
-} from './management/containers';
-import {ErrorComponent} from './error/error.component';
-import {SeasonsComponent} from './management/containers/seasons/seasons.component';
+} from './features/management/containers';
+import { ErrorComponent } from './core/error/error.component';
+import { SeasonsComponent } from './features/management/containers/seasons/seasons.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
     data: {
-      authorities: [],
-    },
+      authorities: []
+    }
   },
   {
     path: '',
     component: ShellComponent,
     data: {
-      authorities: [],
+      authorities: []
     },
     canActivate: [AuthGuard],
     children: [
@@ -34,7 +36,7 @@ const routes: Routes = [
         path: 'financial',
         component: FinancialComponent,
         data: {
-          authorities: ['ROLE_ADMIN'],
+          authorities: ['ROLE_ADMIN']
         },
         canActivate: [AuthGuard]
       },
@@ -42,7 +44,7 @@ const routes: Routes = [
         path: 'players',
         component: PlayerListComponent,
         data: {
-          authorities: [],
+          authorities: []
         },
         canActivate: [AuthGuard]
       },
@@ -50,7 +52,7 @@ const routes: Routes = [
         path: 'create-player',
         component: CreatePlayerComponent,
         data: {
-          authorities: [],
+          authorities: []
         },
         canActivate: [AuthGuard]
       },
@@ -58,7 +60,7 @@ const routes: Routes = [
         path: 'edit-player/:id',
         component: EditPlayerComponent,
         data: {
-          authorities: [],
+          authorities: []
         },
         canActivate: [AuthGuard]
       },
@@ -66,7 +68,7 @@ const routes: Routes = [
         path: 'teams',
         component: TeamListComponent,
         data: {
-          authorities: ['ROLE_ADMIN'],
+          authorities: ['ROLE_ADMIN']
         },
         canActivate: [AuthGuard]
       },
@@ -74,7 +76,7 @@ const routes: Routes = [
         path: 'create-team',
         component: CreateTeamComponent,
         data: {
-          authorities: ['ROLE_ADMIN'],
+          authorities: ['ROLE_ADMIN']
         },
         canActivate: [AuthGuard]
       },
@@ -82,7 +84,7 @@ const routes: Routes = [
         path: 'edit-team/:id',
         component: EditTeamComponent,
         data: {
-          authorities: ['ROLE_ADMIN'],
+          authorities: ['ROLE_ADMIN']
         },
         canActivate: [AuthGuard]
       },
@@ -90,7 +92,7 @@ const routes: Routes = [
         path: 'seasons',
         component: SeasonsComponent,
         data: {
-          authorities: ['ROLE_ADMIN'],
+          authorities: ['ROLE_ADMIN']
         },
         canActivate: [AuthGuard]
       },
@@ -98,7 +100,7 @@ const routes: Routes = [
         path: 'season/:id',
         component: SeasonComponent,
         data: {
-          authorities: ['ROLE_ADMIN'],
+          authorities: ['ROLE_ADMIN']
         },
         canActivate: [AuthGuard]
       },
@@ -110,14 +112,13 @@ const routes: Routes = [
           pageTitle: 'error.title',
           error403: true
         }
-      },
+      }
     ]
-  },
-
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

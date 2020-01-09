@@ -1,10 +1,16 @@
-import {Observable} from 'rxjs';
-import {ObservableInput} from 'observable-input/lib';
+import { Observable } from 'rxjs';
+import { ObservableInput } from 'observable-input/lib';
 
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
-import {PlayerModel} from '../../models/player.model';
-import {listAnimation} from '../../../common/utils/animation';
+import { PlayerModel } from '../../models/player.model';
+import { listAnimation } from '../../../../core/utils/animation';
 
 @Component({
   selector: 'app-player-list-display',
@@ -16,7 +22,7 @@ import {listAnimation} from '../../../common/utils/animation';
 export class PlayerListDisplayComponent {
   @Input()
   @ObservableInput()
-  players$: Observable<PlayerModel[]>
+  players$: Observable<PlayerModel[]>;
 
   @Output()
   onDelete = new EventEmitter();

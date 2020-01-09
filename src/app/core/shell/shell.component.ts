@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {AccountService} from '../common/service/account.service';
+import { Router } from '@angular/router';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-shell',
@@ -8,8 +8,7 @@ import {AccountService} from '../common/service/account.service';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
-
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService) {}
 
   logout() {
     this.accountService.logout();

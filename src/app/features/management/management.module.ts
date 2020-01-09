@@ -7,17 +7,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
   MatCardModule,
-  MatDatepickerModule, MatExpansionModule,
+  MatDatepickerModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatListModule,
+  MatInputModule,
+  MatListModule,
   MatNativeDateModule,
   MatTableModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { reducers, effects } from './store';
-import {HasAnyAuthorityDirective} from '../common/auth/has-any-authority.directive';
+// import { HasAnyAuthorityDirective } from '../shared/directives/has-any-authority.directive';
 
 // components
 import * as fromComponents from './components';
@@ -27,7 +29,7 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 // routes
 
@@ -49,9 +51,13 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatListModule,
     DragDropModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [...fromContainers.containers, ...fromComponents.components, HasAnyAuthorityDirective],
+  declarations: [
+    ...fromContainers.containers,
+    ...fromComponents.components
+    // HasAnyAuthorityDirective
+  ],
   exports: [...fromContainers.containers, ...fromComponents.components],
   providers: [...fromServices.services]
 })
