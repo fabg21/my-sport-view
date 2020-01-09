@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxFlex="100%" class="login-form">
+  <h2>Login</h2>
+
+  <form class="login-form">
+    <mat-form-field class="login-full-width">
+      <input matInput placeholder="login" [formControl]="loginFormControl">
+    </mat-form-field>
+
+    <mat-form-field class="login-full-width">
+      <input matInput placeholder="password" [formControl]="passwordFormControl">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="authenticate()">Authenticate</button>
+    <button mat-raised-button color="primary" class="btn-right">Cancel</button>
+  </form>
+</div>

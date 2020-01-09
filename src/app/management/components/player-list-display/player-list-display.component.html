@@ -1,0 +1,20 @@
+<div *ngIf="players$ | async as players">
+  <ng-container *ngIf="!!players && !!players.length; else noData">
+    <div  @list class="players-list">
+      <ng-container *ngFor="let player of players; let trackBy:trackById">
+        <app-player-item
+          @item
+          [player]="player"
+          (onDelete)="delete($event)"
+          (onModify)="modify($event)"
+          class="item-player"
+        >
+        </app-player-item>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #noData>
+  No data available.
+</ng-template>

@@ -1,0 +1,21 @@
+<div class="player-list-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 fxFlex="20">LIST OF PLAYERS</h2>
+    <div fxFlex>
+      <button (click)="createPlayer()">
+        <mat-icon>person_add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div>
+    <app-search-player></app-search-player>
+  </div>
+  <app-player-list-display
+    [players$]="players$ | async"
+    (onModify)="modify($event)"
+    (onDelete)="delete($event)"
+  >
+  </app-player-list-display>
+</div>
+
+

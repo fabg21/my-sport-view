@@ -1,0 +1,10 @@
+.players-list {
+  flex-flow: row wrap;
+  display: flex;
+}
+
+.item-player {
+  flex-basis: 18%;
+  margin: 0.2vw;
+  cursor: pointer;
+}

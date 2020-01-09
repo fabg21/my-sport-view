@@ -1,0 +1,7 @@
+<div class="player-create-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-icon fxFlex="3">edit</mat-icon>
+    <h2 fxFlex>TEAM CREATION</h2>
+  </div>
+  <app-team-form (onCancelItem)="cancelEditTeam()" (onSaveItem)="editTeam($event)" [team]="team$ | async"></app-team-form>
+</div>

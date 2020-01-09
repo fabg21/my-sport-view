@@ -1,0 +1,18 @@
+<h2>FINANCIAL</h2>
+
+<mat-tab-group>
+  <mat-tab label="Incomings">
+    <app-incomings [incomings$]="incomings$ | async"></app-incomings>
+  </mat-tab>
+  <mat-tab label="Spendings">
+    <app-spendings [spendings$]="spendings$ | async"></app-spendings>
+  </mat-tab>
+  <mat-tab label="Analysis">
+    <app-analysis [spendings]="spendings$ | async" [incomings$]="incomings$ | async"></app-analysis>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+
+

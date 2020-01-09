@@ -1,0 +1,56 @@
+<form [formGroup]="createPlayerForm" (ngSubmit)="savePlayer(createPlayerForm.value)">
+  <div fxLayout="row" fxLayoutAlign="start center" class="create-player-form">
+    <div fxFlex="20">
+      <img src="https://api.adorable.io/avatars/285/bad@adorable.io.png" alt="">
+<!--      <app-image-upload></app-image-upload>-->
+    </div>
+    <div fxFlex class="right-column-form">
+      <mat-form-field class="full-width">
+        <input matInput id="firstname" placeholder="First name" formControlName="firstname" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="firstname.hasError('required')">
+          First name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Last name" formControlName="lastname" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="lastname.hasError('required')">
+          Last name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dateOfBirth" [errorStateMatcher]="matcher">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="dateOfBirth.hasError('required')">
+          Date of birth is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="email" placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">-->
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="email.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput type="tel" placeholder="Phone" formControlName="phone" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="phone.hasError('required')">
+          Phone is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Address" formControlName="address" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="address.hasError('required')">
+          Address is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="div-btn" fxLayoutAlign="center center">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!createPlayerForm.valid">Save</button>
+    <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">Cancel</button>
+  </div>
+</form>

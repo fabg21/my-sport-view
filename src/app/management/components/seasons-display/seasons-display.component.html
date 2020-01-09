@@ -1,0 +1,19 @@
+<mat-accordion *ngIf="seasonsByTeam$ | async as seasonsByTeam">
+  <mat-expansion-panel *ngFor="let seasonByTeam of seasonsByTeam">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Team name: {{seasonByTeam.team.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Logo : {{seasonByTeam.team.logo}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list>
+      <mat-list-item *ngFor="let season of seasonByTeam.seasons">
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <h4 mat-line>Season : {{season.debut}} / {{season.fin}}</h4>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>
+

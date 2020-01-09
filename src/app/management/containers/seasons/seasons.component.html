@@ -1,0 +1,17 @@
+<div class="player-list-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 fxFlex="20">SEASONS CONFIGURATION</h2>
+    <div fxFlex>
+      <button (click)="newSeason()">
+        <mat-icon>add_to_queue</mat-icon>
+      </button>
+    </div>
+  </div>
+  <app-seasons-display
+    [seasons$]="seasons$ | async"
+    [teams$]="teams$ | async"
+  >
+  </app-seasons-display>
+</div>
+
+

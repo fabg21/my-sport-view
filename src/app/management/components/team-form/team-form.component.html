@@ -1,0 +1,15 @@
+<form [formGroup]="teamForm" (ngSubmit)="saveTeam(teamForm.value)">
+  <mat-form-field class="full-width">
+    <input matInput id="name" placeholder="Team name" formControlName="name" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="name.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <img src="https://api.adorable.io/avatars/285/bad@adorable.io.png" alt="">
+
+  <div class="div-btn" fxLayoutAlign="center center">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!teamForm.valid">Save</button>
+    <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">Cancel</button>
+  </div>
+</form>

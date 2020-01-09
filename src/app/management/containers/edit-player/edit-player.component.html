@@ -1,0 +1,7 @@
+<div class="player-create-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-icon fxFlex="3">edit</mat-icon>
+    <h2 fxFlex>PLAYER CREATION</h2>
+  </div>
+  <app-player-form [player]="player$ | async" (onCancelItem)="cancelEditItem()" (onSaveItem)="editPlayer($event)"></app-player-form>
+</div>

@@ -1,0 +1,18 @@
+.player-list-page {
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+
+  .mat-card-header .mat-card-title {
+    font-size: 14px;
+  }
+
+  .mat-card-content, .mat-card-subtitle {
+    font-size: 12px;
+  }
+}
+
+button {
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+<div class="player-list-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 fxFlex="20">TEAMS</h2>
+    <div fxFlex>
+      <button (click)="newTeam()">
+        <mat-icon>group_add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <app-team-list-display
+    [teams$]="teams$ | async"
+  >
+  </app-team-list-display>
+</div>

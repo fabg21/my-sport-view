@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-around center">
+  <mat-toolbar-row>
+    <div fxFlex="90%">
+      <span class="app-title">
+        <mat-icon>sports_soccer</mat-icon>
+        MY SPORT VIEW
+      </span>
+    </div>
+    <div fxFlex>
+      <div fxFlex="50%">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/financial">
+            <mat-icon>euro_symbol</mat-icon>Financial
+          </button>
+          <button mat-menu-item routerLink="/players">
+            <mat-icon>directions_run</mat-icon>List of players
+          </button>
+          <button mat-menu-item routerLink="/teams">
+            <mat-icon>people_rounded</mat-icon>List of teams
+          </button>
+          <button mat-menu-item routerLink="/seasons-configuration">
+            <mat-icon>build_rounded</mat-icon>Seasons configuration
+          </button>
+        </mat-menu>
+      </div>
+      <div>
+        <a (click)="logout()">logout</a>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main class="main" role="main">
+  <router-outlet></router-outlet>
+</main>
