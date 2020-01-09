@@ -27,6 +27,7 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 // routes
 
@@ -46,6 +47,7 @@ import * as fromServices from './services';
     MatExpansionModule,
     MatTableModule,
     MatListModule,
+    DragDropModule,
     FormsModule,
     ReactiveFormsModule,
   ],

@@ -8,4 +8,33 @@
     {{season$ | async | json}}
 
   </div>
+
+  <div>
+    <h3>Select players: </h3>
+
+
+    <div cdkDropListGroup>
+      <div class="example-container" *ngIf="allplayers$ | async as allplayers">
+        <h4>Selected players</h4>
+        <div
+          cdkDropList
+          [cdkDropListData]="allplayers"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of allplayers" cdkDrag>{{item.firstname + ' ' + item.lastname}}</div>
+        </div>
+      </div>
+
+      <div class="example-container">
+        <h4>All players</h4>
+        <div
+          cdkDropList
+          [cdkDropListData]="selectedPlayers"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of selectedPlayers" cdkDrag>{{item.firstname + ' ' + item.lastname}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

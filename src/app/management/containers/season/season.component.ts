@@ -7,6 +7,8 @@ import {ActivatedRoute} from '@angular/router';
 
 import {SeasonModel} from '../../models/season.model';
 import * as fromStore from '../../store';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {PlayerModel} from '../../models/player.model';
 
 @Component({
   selector: 'app-season',
@@ -18,6 +20,9 @@ export class SeasonComponent implements OnInit, OnDestroy {
   alive = true;
   selectedId: number;
   season$: Observable<SeasonModel>;
+
+  allplayers$: Observable<PlayerModel[]>;
+  selectedPlayers: PlayerModel[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +38,20 @@ export class SeasonComponent implements OnInit, OnDestroy {
         );
       })
     );
+
+    this.allplayers$ = this.store.select(fromStore.getAllPlayers);
+    this.store.dispatch(new fromStore.LoadPlayers());
+  }
+
+  drop(event: CdkDragDrop<PlayerModel[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 
   ngOnDestroy(): void {
