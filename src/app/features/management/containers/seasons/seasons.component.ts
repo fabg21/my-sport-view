@@ -39,6 +39,6 @@ export class SeasonsComponent implements OnInit, OnDestroy {
   }
 
   newSeason() {
-    // this.router.navigateByUrl('/create-seas');
+    this.router.navigateByUrl('/management/create-season');
   }
 }

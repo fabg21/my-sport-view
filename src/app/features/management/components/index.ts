@@ -6,6 +6,8 @@ import {PlayerItemComponent} from './player-item/player-item.component';
 import {TeamListDisplayComponent} from './team-list-display/team-list-display.component';
 import {TeamFormComponent} from './team-form/team-form.component';
 import {SeasonsDisplayComponent} from './seasons-display/seasons-display.component';
+import {SeasonFormComponent} from './season-form/season-form.component';
+import {PlayerSelectionComponent} from './player-selection/player-selection.component';
 
 export const components: any[] = [
   SearchPlayerComponent,
@@ -15,7 +17,9 @@ export const components: any[] = [
   PlayerItemComponent,
   TeamListDisplayComponent,
   TeamFormComponent,
-  SeasonsDisplayComponent
+  SeasonsDisplayComponent,
+  SeasonFormComponent,
+  PlayerSelectionComponent
 ];
 
 export * from './search-player/search-player.component';
@@ -26,3 +30,5 @@ export * from './player-item/player-item.component';
 export * from './team-list-display/team-list-display.component';
 export * from './team-form/team-form.component';
 export * from './seasons-display/seasons-display.component';
+export * from './season-form/season-form.component';
+export * from './player-selection/player-selection.component';

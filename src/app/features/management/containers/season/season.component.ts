@@ -1,14 +1,15 @@
-import {Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
-import {select, Store} from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { switchMap, takeWhile } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
 
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {SeasonModel} from '../../models/season.model';
 import * as fromStore from '../../store';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {PlayerModel} from '../../models/player.model';
+
+import { PlayerModel } from '../../models/player.model';
+import {SeasonsService} from '../../services';
 
 @Component({
   selector: 'app-season',
@@ -21,12 +22,14 @@ export class SeasonComponent implements OnInit, OnDestroy {
   selectedId: number;
   season$: Observable<SeasonModel>;
 
-  allplayers$: Observable<PlayerModel[]>;
+  allPlayers$: Observable<PlayerModel[]>;
   selectedPlayers: PlayerModel[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<fromStore.ManagementState>,
+    private router: Router,
+    private seasonService: SeasonsService
   ) { }
 
   ngOnInit() {
@@ -39,23 +42,27 @@ export class SeasonComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.allplayers$ = this.store.select(fromStore.getAllPlayers);
+    this.allPlayers$ = this.store.select(fromStore.getAllPlayers);
     this.store.dispatch(new fromStore.LoadPlayers());
   }
 
-  drop(event: CdkDragDrop<PlayerModel[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
+  cancel() {
+    this.router.navigateByUrl('/management/seasons');
+  }
+
+  editSeason(seasonData) {
+    seasonData.id = this.selectedId;
+    this.seasonService.editSeason(seasonData).pipe(
+      takeWhile(() => this.alive)
+    ).subscribe(
+      x => {
+        this.store.dispatch(new fromStore.LoadSeasons());
+        this.router.navigateByUrl('/management/seasons');
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.alive = false;
   }
-
 }

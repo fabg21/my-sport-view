@@ -34,10 +34,7 @@ export class SeasonsDisplayComponent implements OnInit {
 
   ngOnInit(): void {
     this.seasonsByTeam$ = combineLatest(this.teams$, this.seasons$).pipe(
-      map(([teams, seasons]) => {
-        return toSeasonsByTeams(teams, seasons);
-      }),
-      tap(seasonsByTeam => console.log('FMN : seasonsByTeam', seasonsByTeam))
+      map(([teams, seasons]) => toSeasonsByTeams(teams, seasons))
     );
   }
 

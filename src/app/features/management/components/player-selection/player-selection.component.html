@@ -1,0 +1,26 @@
+<div>
+  <h3>Players selection: </h3>
+  <div cdkDropListGroup>
+    <div class="example-container" *ngIf="allPlayers$ | async as allPlayers">
+      <h4>All players</h4>
+      <div
+        cdkDropList
+        [cdkDropListData]="allPlayers"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of allPlayers" cdkDrag>{{item.firstname + ' ' + item.lastname}}</div>
+      </div>
+    </div>
+
+    <div class="example-container">
+      <h4>Selected players</h4>
+      <div
+        cdkDropList
+        [cdkDropListData]="selectedPlayers"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of selectedPlayers" cdkDrag>{{item.firstname + ' ' + item.lastname}}</div>
+      </div>
+    </div>
+  </div>
+</div>

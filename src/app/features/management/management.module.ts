@@ -17,7 +17,10 @@ import {
   MatTableModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {RouterModule, Routes} from '@angular/router';
 
+import {AuthGuard} from '../../core/guards/auth.guard';
 import { reducers, effects } from './store';
 
 // components
@@ -28,23 +31,12 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import {RouterModule, Routes} from '@angular/router';
-import {AuthGuard} from '../../core/guards/auth.guard';
-import {PlayerListComponent} from './containers';
-import {CreatePlayerComponent} from './containers';
-import {EditPlayerComponent} from './containers';
-import {TeamListComponent} from './containers';
-import {CreateTeamComponent} from './containers';
-import {EditTeamComponent} from './containers';
-import {SeasonsComponent} from './containers';
-import {SeasonComponent} from './containers';
 
 // routes
 const routes: Routes = [
   {
     path: 'players',
-    component: PlayerListComponent,
+    component: fromContainers.PlayerListComponent,
     data: {
       authorities: []
     },
@@ -52,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'create-player',
-    component: CreatePlayerComponent,
+    component: fromContainers.CreatePlayerComponent,
     data: {
       authorities: []
     },
@@ -60,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-player/:id',
-    component: EditPlayerComponent,
+    component: fromContainers.EditPlayerComponent,
     data: {
       authorities: []
     },
@@ -68,7 +60,7 @@ const routes: Routes = [
   },
   {
     path: 'teams',
-    component: TeamListComponent,
+    component: fromContainers.TeamListComponent,
     data: {
       authorities: ['ROLE_ADMIN']
     },
@@ -76,7 +68,7 @@ const routes: Routes = [
   },
   {
     path: 'create-team',
-    component: CreateTeamComponent,
+    component: fromContainers.CreateTeamComponent,
     data: {
       authorities: ['ROLE_ADMIN']
     },
@@ -84,7 +76,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-team/:id',
-    component: EditTeamComponent,
+    component: fromContainers.EditTeamComponent,
     data: {
       authorities: ['ROLE_ADMIN']
     },
@@ -92,7 +84,15 @@ const routes: Routes = [
   },
   {
     path: 'seasons',
-    component: SeasonsComponent,
+    component: fromContainers.SeasonsComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create-season',
+    component: fromContainers.CreateSeasonComponent,
     data: {
       authorities: ['ROLE_ADMIN']
     },
@@ -100,7 +100,7 @@ const routes: Routes = [
   },
   {
     path: 'season/:id',
-    component: SeasonComponent,
+    component: fromContainers.SeasonComponent,
     data: {
       authorities: ['ROLE_ADMIN']
     },
@@ -131,10 +131,13 @@ const routes: Routes = [
   ],
   declarations: [
     ...fromContainers.containers,
-    ...fromComponents.components
+    ...fromComponents.components,
     // HasAnyAuthorityDirective
   ],
-  exports: [...fromContainers.containers, ...fromComponents.components],
+  exports: [
+    ...fromContainers.containers,
+    ...fromComponents.components,
+  ],
   providers: [...fromServices.services]
 })
 export class ManagementModule {}

@@ -1,0 +1,20 @@
+<form [formGroup]="seasonForm" (ngSubmit)="saveSeason(seasonForm.value)">
+  <mat-form-field class="full-width">
+    <input matInput id="start" placeholder="Start" formControlName="start" [errorStateMatcher]="matcher" type="date">
+    <mat-error *ngIf="start.hasError('required')">
+      Start is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <input matInput id="end" placeholder="End" formControlName="end" [errorStateMatcher]="matcher" type="date">
+    <mat-error *ngIf="end.hasError('required')">
+      End is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="div-btn" fxLayoutAlign="center center">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!seasonForm.valid">Save</button>
+    <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">Cancel</button>
+  </div>
+</form>
