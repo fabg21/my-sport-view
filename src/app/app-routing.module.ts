@@ -45,68 +45,16 @@ const routes: Routes = [
         // canActivate: [AuthGuard]
       },
       {
-        path: 'players',
-        component: PlayerListComponent,
-        data: {
-          authorities: []
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'create-player',
-        component: CreatePlayerComponent,
-        data: {
-          authorities: []
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'edit-player/:id',
-        component: EditPlayerComponent,
-        data: {
-          authorities: []
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'teams',
-        component: TeamListComponent,
-        data: {
-          authorities: ['ROLE_ADMIN']
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'create-team',
-        component: CreateTeamComponent,
-        data: {
-          authorities: ['ROLE_ADMIN']
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'edit-team/:id',
-        component: EditTeamComponent,
-        data: {
-          authorities: ['ROLE_ADMIN']
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'seasons',
-        component: SeasonsComponent,
-        data: {
-          authorities: ['ROLE_ADMIN']
-        },
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'season/:id',
-        component: SeasonComponent,
-        data: {
-          authorities: ['ROLE_ADMIN']
-        },
-        canActivate: [AuthGuard]
+        path: 'management',
+        loadChildren: () =>
+          import('./features/management/management.module').then(
+            mod => mod.ManagementModule
+          )
+        // component: FinancialComponent,
+        // data: {
+        //   authorities: ['ROLE_ADMIN']
+        // },
+        // canActivate: [AuthGuard]
       },
       {
         path: 'access-denied',

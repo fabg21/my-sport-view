@@ -19,7 +19,6 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { reducers, effects } from './store';
-// import { HasAnyAuthorityDirective } from '../shared/directives/has-any-authority.directive';
 
 // components
 import * as fromComponents from './components';
@@ -30,12 +29,89 @@ import * as fromContainers from './containers';
 // services
 import * as fromServices from './services';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from '../../core/guards/auth.guard';
+import {PlayerListComponent} from './containers';
+import {CreatePlayerComponent} from './containers';
+import {EditPlayerComponent} from './containers';
+import {TeamListComponent} from './containers';
+import {CreateTeamComponent} from './containers';
+import {EditTeamComponent} from './containers';
+import {SeasonsComponent} from './containers';
+import {SeasonComponent} from './containers';
 
 // routes
+const routes: Routes = [
+  {
+    path: 'players',
+    component: PlayerListComponent,
+    data: {
+      authorities: []
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create-player',
+    component: CreatePlayerComponent,
+    data: {
+      authorities: []
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-player/:id',
+    component: EditPlayerComponent,
+    data: {
+      authorities: []
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'teams',
+    component: TeamListComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create-team',
+    component: CreateTeamComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-team/:id',
+    component: EditTeamComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'seasons',
+    component: SeasonsComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'season/:id',
+    component: SeasonComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
     StoreModule.forFeature('management', reducers),
     EffectsModule.forFeature(effects),
     FlexLayoutModule,

@@ -42,7 +42,7 @@ export class SeasonsDisplayComponent implements OnInit {
   }
 
   configureSeason(seasonId) {
-    this.router.navigate(['/season', seasonId]);
+    this.router.navigate(['/management/season', seasonId]);
   }
 }
 
