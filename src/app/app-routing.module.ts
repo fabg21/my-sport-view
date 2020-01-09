@@ -34,11 +34,15 @@ const routes: Routes = [
     children: [
       {
         path: 'financial',
-        component: FinancialComponent,
-        data: {
-          authorities: ['ROLE_ADMIN']
-        },
-        canActivate: [AuthGuard]
+        loadChildren: () =>
+          import('./features/financial/financial.module').then(
+            mod => mod.FinancialModule
+          )
+        // component: FinancialComponent,
+        // data: {
+        //   authorities: ['ROLE_ADMIN']
+        // },
+        // canActivate: [AuthGuard]
       },
       {
         path: 'players',
