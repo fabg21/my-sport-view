@@ -38,7 +38,7 @@ export class EditTeamComponent implements OnInit, OnDestroy {
   }
 
   cancelEditTeam() {
-    this.router.navigateByUrl('/teams');
+    this.router.navigateByUrl('/management/teams');
   }
 
   editTeam(teamData) {
@@ -49,7 +49,7 @@ export class EditTeamComponent implements OnInit, OnDestroy {
     ).subscribe(
       x => {
         this.store.dispatch(new fromStore.LoadTeams());
-        this.router.navigateByUrl('/teams');
+        this.router.navigateByUrl('/management/teams');
       }
     );
   }

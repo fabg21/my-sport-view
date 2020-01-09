@@ -37,7 +37,7 @@ export class EditPlayerComponent implements OnInit, OnDestroy {
   }
 
   cancelEditItem() {
-    this.router.navigateByUrl('/players');
+    this.router.navigateByUrl('/management/players');
   }
 
   editPlayer(playerData) {
@@ -48,7 +48,7 @@ export class EditPlayerComponent implements OnInit, OnDestroy {
     ).subscribe(
       x => {
         this.store.dispatch(new fromStore.LoadPlayers());
-        this.router.navigateByUrl('/players');
+        this.router.navigateByUrl('/management/players');
       }
     );
   }

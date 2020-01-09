@@ -35,7 +35,7 @@ export class TeamListComponent implements OnInit, OnDestroy {
   }
 
   newTeam() {
-    this.router.navigateByUrl('/create-team');
+    this.router.navigateByUrl('/management/create-team');
   }
 
   delete(id) {
@@ -45,7 +45,7 @@ export class TeamListComponent implements OnInit, OnDestroy {
   }
 
   modify(team: TeamModel) {
-    this.router.navigate(['/edit-team', team.id]);
+    this.router.navigate(['/management/edit-team', team.id]);
   }
 
 }

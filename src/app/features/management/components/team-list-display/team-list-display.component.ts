@@ -22,6 +22,6 @@ export class TeamListDisplayComponent {
   ) {}
 
   editTeam(row) {
-    this.router.navigate(['/edit-team', row.id]);
+    this.router.navigate(['/management/edit-team', row.id]);
   }
 }

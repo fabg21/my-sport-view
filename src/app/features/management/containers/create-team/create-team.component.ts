@@ -21,7 +21,7 @@ export class CreateTeamComponent implements OnDestroy {
   ) {}
 
   cancelCreateTeam() {
-    this.router.navigateByUrl('/teams');
+    this.router.navigateByUrl('/management/teams');
   }
 
   createTeam(teamData) {
@@ -31,7 +31,7 @@ export class CreateTeamComponent implements OnDestroy {
     ).subscribe(
       x => {
         this.store.dispatch(new fromStore.LoadTeams());
-        this.router.navigateByUrl('/teams');
+        this.router.navigateByUrl('/management/teams');
       }
     );
   }

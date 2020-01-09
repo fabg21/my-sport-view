@@ -22,7 +22,7 @@ export class CreatePlayerComponent implements OnDestroy {
   ) {}
 
   cancelCreateItem() {
-    this.router.navigateByUrl('/players');
+    this.router.navigateByUrl('/management/players');
   }
 
   createPlayer(playerData) {
@@ -32,7 +32,7 @@ export class CreatePlayerComponent implements OnDestroy {
     ).subscribe(
       x => {
         this.store.dispatch(new fromStore.LoadPlayers());
-        this.router.navigateByUrl('/players');
+        this.router.navigateByUrl('/management/players');
       }
     );
   }

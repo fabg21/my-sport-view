@@ -34,7 +34,7 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   createPlayer() {
-    this.router.navigateByUrl('/create-player');
+    this.router.navigateByUrl('/management/create-player');
   }
 
   delete(id) {
@@ -44,6 +44,6 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   modify(player: PlayerModel) {
-    this.router.navigate(['/edit-player', player.id]);
+    this.router.navigate(['/management/edit-player', player.id]);
   }
 }
