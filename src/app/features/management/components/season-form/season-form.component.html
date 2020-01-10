@@ -1,18 +1,28 @@
-<form [formGroup]="seasonForm" (ngSubmit)="saveSeason(seasonForm.value)">
+<form [formGroup]="seasonForm" (ngSubmit)="saveSeason(seasonForm.value)" fxLayout="column" fxLayoutAlign="center start">
+  <mat-form-field>
+    <mat-label>Team</mat-label>
+    <mat-select formControlName="teamIdId">
+      <mat-option *ngFor="let team of teams$ | async" [value]="team.id">
+        {{team.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput id="start" placeholder="Start" formControlName="start" [errorStateMatcher]="matcher" type="date">
-    <mat-error *ngIf="start.hasError('required')">
+    <input matInput [matDatepicker]="picker" placeholder="Start" formControlName="debut" [errorStateMatcher]="matcher">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="debut.hasError('required')">
       Start is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-
   <mat-form-field class="full-width">
-    <input matInput id="end" placeholder="End" formControlName="end" [errorStateMatcher]="matcher" type="date">
-    <mat-error *ngIf="end.hasError('required')">
+    <input matInput [matDatepicker]="pickerEnd" placeholder="End" formControlName="fin" [errorStateMatcher]="matcher">
+    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+    <mat-datepicker #pickerEnd></mat-datepicker>
+    <mat-error *ngIf="fin.hasError('required')">
       End is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-
   <div class="div-btn" fxLayoutAlign="center center">
     <button mat-raised-button color="primary" type="submit" [disabled]="!seasonForm.valid">Save</button>
     <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">Cancel</button>

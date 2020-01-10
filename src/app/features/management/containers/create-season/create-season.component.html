@@ -3,7 +3,16 @@
     <mat-icon fxFlex="3">edit</mat-icon>
     <h2 fxFlex>SEASON CREATION</h2>
   </div>
-  <app-season-form (cancelItem)="createSeason($event)" (saveItem)="cancel()"></app-season-form>
+  <app-season-form
+    (cancelItem)="cancel()"
+    (saveItem)="createSeason($event)"
+    [teams$]="teams$ | async"
+  >
+  </app-season-form>
   <mat-divider class="player-selection-divider"></mat-divider>
-  <app-player-selection [allPlayers$]="allPlayers$ | async" [selectedPlayers]="selectedPlayers"></app-player-selection>
+  <app-player-selection
+    [allPlayers$]="allPlayers$ | async"
+    [selectedPlayers]="selectedPlayers"
+  >
+  </app-player-selection>
 </div>

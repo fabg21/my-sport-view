@@ -13,7 +13,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
-  MatNativeDateModule,
+  MatNativeDateModule, MatSelectModule,
   MatTableModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -125,6 +125,7 @@ const routes: Routes = [
     MatExpansionModule,
     MatTableModule,
     MatListModule,
+    MatSelectModule,
     DragDropModule,
     FormsModule,
     ReactiveFormsModule
