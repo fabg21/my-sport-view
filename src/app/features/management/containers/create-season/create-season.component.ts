@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SeasonsService } from '../../services';
 import * as fromStore from '../../store';
 import { PlayerModel } from '../../models/player.model';
+import {TeamModel} from '../../models/team.model';
 
 @Component({
   selector: 'app-create-season',
@@ -18,6 +19,7 @@ export class CreateSeasonComponent implements OnInit, OnDestroy {
 
   alive = true;
 
+  teams$: Observable<TeamModel[]>;
   allPlayers$: Observable<PlayerModel[]>;
   selectedPlayers: PlayerModel[] = [];
 
@@ -30,6 +32,8 @@ export class CreateSeasonComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.allPlayers$ = this.store.select(fromStore.getAllPlayers);
     this.store.dispatch(new fromStore.LoadPlayers());
+    this.teams$ = this.store.select(fromStore.getAllTeams);
+    this.store.dispatch(new fromStore.LoadTeams());
   }
 
   cancel() {

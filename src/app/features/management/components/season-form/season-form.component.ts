@@ -1,7 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ObservableInput} from 'observable-input/lib';
+
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {SeasonModel} from '../../models/season.model';
 import {ErrorStateMatcher} from '@angular/material';
+
+import {SeasonModel} from '../../models/season.model';
+import {TeamModel} from '../../models/team.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -16,10 +21,16 @@ class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './season-form.component.html',
   styleUrls: ['./season-form.component.scss']
 })
-export class SeasonFormComponent implements OnInit {
+export class SeasonFormComponent implements OnInit, OnDestroy {
+
+  alive = true;
 
   @Input()
   season: SeasonModel;
+
+  @Input()
+  @ObservableInput()
+  teams$: Observable<TeamModel[]>;
 
   @Output() saveItem = new EventEmitter<any>();
   @Output() cancelItem = new EventEmitter();
@@ -40,30 +51,43 @@ export class SeasonFormComponent implements OnInit {
     if (!this.season) {
       this.season = {
         debut: null,
-        fin: null
+        fin: null,
+        teamIdId: null
       };
     } else {
-      this.seasonForm.get('start').patchValue(new Date(this.season.debut));
-      this.seasonForm.get('end').patchValue(new Date(this.season.fin));
+      this.seasonForm.get('debut').patchValue(new Date(this.season.debut));
+      this.seasonForm.get('fin').patchValue(new Date(this.season.fin));
+      this.seasonForm.get('teamIdId').patchValue(this.season.teamIdId);
+      this.seasonForm.get('teamIdId').disable();
     }
   }
 
   createForm() {
     this.seasonForm = this.formBuilder.group({
-      start: new FormControl('', Validators.required),
-      end: new FormControl('', Validators.required)
+      debut: new FormControl('', Validators.required),
+      fin: new FormControl('', Validators.required),
+      teamIdId: new FormControl('', Validators.required)
     });
   }
 
-  get start() { return this.seasonForm.get('start'); }
-  get end() { return this.seasonForm.get('end'); }
+  get debut() { return this.seasonForm.get('debut'); }
+  get fin() { return this.seasonForm.get('fin'); }
+  get teamIdId() { return this.seasonForm.get('teamIdId'); }
 
   saveSeason(season) {
-    this.saveItem.emit(season);
+    const seasonToSave = {
+      ...season,
+      teamIdId: this.seasonForm.get('teamIdId').value
+    }
+    this.saveItem.emit(seasonToSave);
   }
 
   cancel() {
     this.seasonForm.reset();
     this.cancelItem.emit();
+  }
+
+  ngOnDestroy(): void {
+    this.alive = false;
   }
 }

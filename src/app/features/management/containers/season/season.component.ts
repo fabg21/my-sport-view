@@ -7,9 +7,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {SeasonModel} from '../../models/season.model';
 import * as fromStore from '../../store';
-
 import { PlayerModel } from '../../models/player.model';
 import {SeasonsService} from '../../services';
+import {TeamModel} from '../../models/team.model';
 
 @Component({
   selector: 'app-season',
@@ -24,6 +24,7 @@ export class SeasonComponent implements OnInit, OnDestroy {
 
   allPlayers$: Observable<PlayerModel[]>;
   selectedPlayers: PlayerModel[] = [];
+  teams$: Observable<TeamModel[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,9 +42,10 @@ export class SeasonComponent implements OnInit, OnDestroy {
         );
       })
     );
-
     this.allPlayers$ = this.store.select(fromStore.getAllPlayers);
     this.store.dispatch(new fromStore.LoadPlayers());
+    this.teams$ = this.store.select(fromStore.getAllTeams);
+    this.store.dispatch(new fromStore.LoadTeams());
   }
 
   cancel() {
