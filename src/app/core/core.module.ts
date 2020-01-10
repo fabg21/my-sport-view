@@ -6,12 +6,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppRoutingModule } from '../app-routing.module';
 import { LoginModule } from './login/login.module';
 import { ShellModule } from './shell/shell.module';
 import { AuthGuard } from './guards/auth.guard';
 import { TokenInterceptor } from './interceptors/TokenInterceptor';
 import { ErrorComponent } from './error/error.component';
+import { RootStateModule } from './+state/root-state.module';
 
 @NgModule({
   declarations: [ErrorComponent],
@@ -24,7 +24,8 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
     LoginModule,
     ShellModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RootStateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
