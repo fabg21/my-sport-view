@@ -27,4 +27,6 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="!seasonForm.valid">Save</button>
     <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">Cancel</button>
   </div>
+  <mat-divider class="player-selection-divider"></mat-divider>
+  <app-player-selection [allPlayers$]="allPlayers$ | async" [selectedPlayers]="selectedPlayers"></app-player-selection>
 </form>

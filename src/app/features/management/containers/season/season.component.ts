@@ -23,7 +23,6 @@ export class SeasonComponent implements OnInit, OnDestroy {
   season$: Observable<SeasonModel>;
 
   allPlayers$: Observable<PlayerModel[]>;
-  selectedPlayers: PlayerModel[] = [];
   teams$: Observable<TeamModel[]>;
 
   constructor(

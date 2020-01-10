@@ -7,6 +7,7 @@ import {ErrorStateMatcher} from '@angular/material';
 
 import {SeasonModel} from '../../models/season.model';
 import {TeamModel} from '../../models/team.model';
+import {PlayerModel} from '../../models/player.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -23,8 +24,6 @@ class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SeasonFormComponent implements OnInit, OnDestroy {
 
-  alive = true;
-
   @Input()
   season: SeasonModel;
 
@@ -32,11 +31,17 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
   @ObservableInput()
   teams$: Observable<TeamModel[]>;
 
+  @Input()
+  @ObservableInput()
+  allPlayers$: Observable<PlayerModel[]>;
+
   @Output() saveItem = new EventEmitter<any>();
   @Output() cancelItem = new EventEmitter();
 
+  alive = true;
   seasonForm: FormGroup;
   matcher = new MyErrorStateMatcher();
+  selectedPlayers: PlayerModel[] = [];
 
   constructor(
     private formBuilder: FormBuilder
