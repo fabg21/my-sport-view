@@ -7,12 +7,7 @@
     (cancelItem)="cancel()"
     (saveItem)="createSeason($event)"
     [teams$]="teams$ | async"
+    [allPlayers$]="allPlayers$ | async"
   >
   </app-season-form>
-  <mat-divider class="player-selection-divider"></mat-divider>
-  <app-player-selection
-    [allPlayers$]="allPlayers$ | async"
-    [selectedPlayers]="selectedPlayers"
-  >
-  </app-player-selection>
 </div>
