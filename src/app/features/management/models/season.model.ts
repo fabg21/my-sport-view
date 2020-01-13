@@ -1,6 +1,6 @@
 export interface SeasonModel {
   id?: number;
   teamIdId?: number;
-  debut?: Date;
-  fin?: Date;
+  start?: Date;
+  end?: Date;
 }

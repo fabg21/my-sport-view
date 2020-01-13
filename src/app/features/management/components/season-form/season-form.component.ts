@@ -55,13 +55,13 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
   initData() {
     if (!this.season) {
       this.season = {
-        debut: null,
-        fin: null,
+        start: null,
+        end: null,
         teamIdId: null
       };
     } else {
-      this.seasonForm.get('debut').patchValue(new Date(this.season.debut));
-      this.seasonForm.get('fin').patchValue(new Date(this.season.fin));
+      this.seasonForm.get('start').patchValue(new Date(this.season.start));
+      this.seasonForm.get('end').patchValue(new Date(this.season.end));
       this.seasonForm.get('teamIdId').patchValue(this.season.teamIdId);
       this.seasonForm.get('teamIdId').disable();
     }
@@ -69,14 +69,14 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.seasonForm = this.formBuilder.group({
-      debut: new FormControl('', Validators.required),
-      fin: new FormControl('', Validators.required),
+      start: new FormControl('', Validators.required),
+      end: new FormControl('', Validators.required),
       teamIdId: new FormControl('', Validators.required)
     });
   }
 
-  get debut() { return this.seasonForm.get('debut'); }
-  get fin() { return this.seasonForm.get('fin'); }
+  get start() { return this.seasonForm.get('start'); }
+  get end() { return this.seasonForm.get('end'); }
   get teamIdId() { return this.seasonForm.get('teamIdId'); }
 
   saveSeason(season) {

@@ -8,18 +8,18 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput [matDatepicker]="picker" placeholder="Start" formControlName="debut" [errorStateMatcher]="matcher">
+    <input matInput [matDatepicker]="picker" placeholder="Start" formControlName="start" [errorStateMatcher]="matcher">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="debut.hasError('required')">
+    <mat-error *ngIf="start.hasError('required')">
       Start is <strong>required</strong>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <input matInput [matDatepicker]="pickerEnd" placeholder="End" formControlName="fin" [errorStateMatcher]="matcher">
+    <input matInput [matDatepicker]="pickerEnd" placeholder="End" formControlName="end" [errorStateMatcher]="matcher">
     <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
     <mat-datepicker #pickerEnd></mat-datepicker>
-    <mat-error *ngIf="fin.hasError('required')">
+    <mat-error *ngIf="end.hasError('required')">
       End is <strong>required</strong>
     </mat-error>
   </mat-form-field>

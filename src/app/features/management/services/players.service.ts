@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable()
 export class PlayersService extends BackendService {
   servicesApi = environment.servicesUrl;
-  playerUrl = this.servicesApi + '/mysportplayers/api/players';
+  playerUrl = this.servicesApi + '/mysportteam/api/players';
 
   getAllPlayers(): Observable<PlayerModel[]> {
     return this.get<PlayerModel[]>(this.playerUrl, false);
