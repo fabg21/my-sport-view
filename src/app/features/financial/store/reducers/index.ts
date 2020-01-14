@@ -24,7 +24,7 @@ export const getIncomingState = createSelector(
 
 export const getAllIncomings = createSelector(
   getIncomingState,
-  fromIncominngs.getIncomings
+  fromIncominngs.getAllIncomings
 );
 
 export const getIncomingsLoaded = createSelector(
@@ -45,7 +45,7 @@ export const getSpendingState = createSelector(
 
 export const getAllSpendings = createSelector(
   getSpendingState,
-  fromSpendings.getSpendings
+  fromSpendings.getAllSpendings
 );
 
 export const getSpendingsLoaded = createSelector(
@@ -55,5 +55,5 @@ export const getSpendingsLoaded = createSelector(
 
 export const getSpendingsLoading = createSelector(
   getSpendingState,
-  fromIncominngs.getIncomingsLoading
+  fromSpendings.getSpendingsLoading
 );

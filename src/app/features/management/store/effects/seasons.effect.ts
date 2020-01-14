@@ -17,7 +17,7 @@ export class SeasonsEffect {
 
   @Effect()
   loadTeams$ = this.actions$.pipe(
-    ofType<seasonsActions.LoadSeasons>(seasonsActions.LOAD_SEASONS),
+    ofType<seasonsActions.LoadSeasons>(seasonsActions.SeasonsActionTypes.LOAD_SEASONS),
     switchMap(x =>
       this.seasonsService.getAllSeasons().pipe(
         map(seasons => new seasonsActions.LoadSeasonsSuccess(seasons)),

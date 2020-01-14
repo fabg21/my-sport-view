@@ -1,6 +1,6 @@
-import {PlayersEffect} from './players.effect';
-import {TeamsEffect} from './teams.effect';
-import {SeasonsEffect} from './seasons.effect';
+import { PlayersEffect } from './players.effect';
+import { TeamsEffect } from './teams.effect';
+import { SeasonsEffect } from './seasons.effect';
 
 export const effects: any[] = [PlayersEffect, TeamsEffect, SeasonsEffect];
 

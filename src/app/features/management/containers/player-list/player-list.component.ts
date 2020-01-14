@@ -44,6 +44,7 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   modify(player: PlayerModel) {
-    this.router.navigate(['/management/edit-player', player.id]);
+    this.store.dispatch(new fromStore.SelectOnePlayer({ id: player.id }));
+    this.router.navigate(['/management/edit-player']);
   }
 }

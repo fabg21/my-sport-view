@@ -6,6 +6,7 @@ import {Effect, Actions, ofType} from '@ngrx/effects';
 
 import * as teamsActions from '../actions/teams.action';
 import * as fromServices from '../../services';
+import {TeamsActionTypes} from '../actions/teams.action';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class TeamsEffect {
 
   @Effect()
   loadTeams$ = this.actions$.pipe(
-    ofType<teamsActions.LoadTeams>(teamsActions.LOAD_TEAMS),
+    ofType<teamsActions.LoadTeams>(teamsActions.TeamsActionTypes.LOAD_TEAMS),
     switchMap(x =>
       this.teamsService.getAllTeams().pipe(
         map(teams => new teamsActions.LoadTeamsSuccess(teams)),

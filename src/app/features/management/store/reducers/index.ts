@@ -28,12 +28,23 @@ export const getPlayerState = createSelector(
 
 export const getAllPlayers = createSelector(
   getPlayerState,
-  fromPlayers.getPlayers
+  fromPlayers.getAllPlayers
+);
+
+export const getAllPlayersEntities = createSelector(
+  getPlayerState,
+  fromPlayers.getPlayersEntities
+);
+
+export const getSelectedPlayerId = createSelector(
+  getPlayerState,
+  fromPlayers.getSelectedPlayerId
 );
 
 export const getSelectedPlayer = createSelector(
-  getAllPlayers,
-  (players, props) => players.find(player => player.id === props.id)
+  getAllPlayersEntities,
+  getSelectedPlayerId,
+  (entities, selectedId) => entities && selectedId && entities[selectedId]
 );
 
 export const getPlayersLoaded = createSelector(
@@ -55,7 +66,7 @@ export const getTeamsState = createSelector(
 
 export const getAllTeams = createSelector(
   getTeamsState,
-  fromTeams.getTeams
+  fromTeams.getAllTeams
 );
 
 export const getTeamsLoaded = createSelector(
@@ -82,7 +93,7 @@ export const getSeasonsState = createSelector(
 
 export const getAllSeasons = createSelector(
   getSeasonsState,
-  fromSeasons.getSeasons
+  fromSeasons.getAllSeasons
 );
 
 export const getSeasonsLoaded = createSelector(

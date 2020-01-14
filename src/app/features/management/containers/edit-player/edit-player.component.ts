@@ -1,38 +1,32 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PlayerModel} from '../../models/player.model';
-import {switchMap, takeWhile} from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {select, Store} from '@ngrx/store';
+
+import {PlayerModel} from '../../models/player.model';
 import * as fromStore from '../../store';
-import {PlayersService} from '../../services';
+import { PlayersService } from '../../services';
 
 @Component({
   selector: 'app-edit-player',
   templateUrl: './edit-player.component.html',
   styleUrls: ['./edit-player.component.scss']
 })
-export class EditPlayerComponent implements OnInit, OnDestroy {
+export class EditPlayerComponent implements OnInit {
 
-  alive = true;
-  selectedId: number;
   player$: Observable<PlayerModel>;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<fromStore.ManagementState>,
     private router: Router,
-    private playerService: PlayersService,
   ) { }
 
   ngOnInit() {
-    this.player$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        this.selectedId = + params.get('id');
-        return this.store.pipe(
-          select(fromStore.getSelectedPlayer, { id: this.selectedId })
-        );
-      })
+    this.player$ = this.store.pipe(
+      select(fromStore.getSelectedPlayer),
     );
   }
 
@@ -41,19 +35,6 @@ export class EditPlayerComponent implements OnInit, OnDestroy {
   }
 
   editPlayer(playerData) {
-    playerData.id = this.selectedId;
-    playerData.avatar = 'https://api.adorable.io/avatars/285/bad@adorable.io.png';
-    this.playerService.editPlayer(playerData).pipe(
-      takeWhile(() => this.alive)
-    ).subscribe(
-      x => {
-        this.store.dispatch(new fromStore.LoadPlayers());
-        this.router.navigateByUrl('/management/players');
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.alive = false;
+    this.store.dispatch(new fromStore.EditPlayer({playerData}));
   }
 }

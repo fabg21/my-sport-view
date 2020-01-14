@@ -11,13 +11,10 @@ import {Store} from '@ngrx/store';
   templateUrl: './create-player.component.html',
   styleUrls: ['./create-player.component.scss']
 })
-export class CreatePlayerComponent implements OnDestroy {
-
-  alive = true;
+export class CreatePlayerComponent {
 
   constructor(
     private router: Router,
-    private playerService: PlayersService,
     private store: Store<fromStore.ManagementState>
   ) {}
 
@@ -27,17 +24,6 @@ export class CreatePlayerComponent implements OnDestroy {
 
   createPlayer(playerData) {
     playerData.avatar = 'https://api.adorable.io/avatars/285/bad@adorable.io.png';
-    this.playerService.createPlayer(playerData).pipe(
-      takeWhile(() => this.alive)
-    ).subscribe(
-      x => {
-        this.store.dispatch(new fromStore.LoadPlayers());
-        this.router.navigateByUrl('/management/players');
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.alive = false;
+    this.store.dispatch(new fromStore.AddPlayer({playerData}));
   }
 }

@@ -51,7 +51,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'edit-player/:id',
+    path: 'edit-player',
     component: fromContainers.EditPlayerComponent,
     data: {
       authorities: []
