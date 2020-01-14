@@ -8,6 +8,7 @@ import {ErrorStateMatcher} from '@angular/material';
 import {SeasonModel} from '../../models/season.model';
 import {TeamModel} from '../../models/team.model';
 import {PlayerModel} from '../../models/player.model';
+import {filter, map, tap} from 'rxjs/operators';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -57,13 +58,15 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
       this.season = {
         start: null,
         end: null,
-        teamIdId: null
+        teamIdId: null,
+        players: []
       };
     } else {
       this.seasonForm.get('start').patchValue(new Date(this.season.start));
       this.seasonForm.get('end').patchValue(new Date(this.season.end));
       this.seasonForm.get('teamIdId').patchValue(this.season.teamIdId);
       this.seasonForm.get('teamIdId').disable();
+      this.selectedPlayers = Object.assign([], this.season.players);
     }
   }
 
@@ -82,7 +85,8 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
   saveSeason(season) {
     const seasonToSave = {
       ...season,
-      teamIdId: this.seasonForm.get('teamIdId').value
+      teamIdId: this.seasonForm.get('teamIdId').value,
+      players: Object.assign([], this.selectedPlayers)
     }
     this.saveItem.emit(seasonToSave);
   }

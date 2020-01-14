@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { switchMap, takeWhile } from 'rxjs/operators';
+import {switchMap, takeWhile, tap} from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import {Component, OnDestroy, OnInit} from '@angular/core';

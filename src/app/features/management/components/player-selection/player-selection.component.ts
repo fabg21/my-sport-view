@@ -1,24 +1,28 @@
-import { Observable } from 'rxjs';
-import { ObservableInput } from 'observable-input/lib';
+import { differenceBy } from 'lodash';
 
-import { Component, Input } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {Component, Input, OnInit} from '@angular/core';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
-import { PlayerModel } from '../../models/player.model';
+import {PlayerModel} from '../../models/player.model';
 
 @Component({
   selector: 'app-player-selection',
   templateUrl: './player-selection.component.html',
   styleUrls: ['./player-selection.component.scss']
 })
-export class PlayerSelectionComponent {
+export class PlayerSelectionComponent implements OnInit {
 
   @Input()
-  @ObservableInput()
-  allPlayers$: Observable<PlayerModel[]>;
+  allPlayers: PlayerModel[];
 
   @Input()
   selectedPlayers: PlayerModel[] = [];
+
+  availablePlayers: PlayerModel[];
+
+  ngOnInit(): void {
+    this.availablePlayers = differenceBy(this.allPlayers, this.selectedPlayers, 'id');
+  }
 
   drop(event: CdkDragDrop<PlayerModel[]>) {
     if (event.previousContainer === event.container) {

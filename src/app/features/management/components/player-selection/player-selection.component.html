@@ -1,14 +1,14 @@
 <div>
   <h3>Players selection: </h3>
   <div cdkDropListGroup>
-    <div class="example-container" *ngIf="allPlayers$ | async as allPlayers">
+    <div class="example-container" *ngIf="availablePlayers">
       <h4>All players</h4>
       <div
         cdkDropList
-        [cdkDropListData]="allPlayers"
+        [cdkDropListData]="availablePlayers"
         class="example-list"
         (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of allPlayers" cdkDrag>{{item.firstname + ' ' + item.lastname}}</div>
+        <div class="example-box" *ngFor="let item of availablePlayers" cdkDrag>{{item.firstname + ' ' + item.lastname}}</div>
       </div>
     </div>
 
