@@ -61,12 +61,29 @@ export class PlayersEffect {
   @Effect({ dispatch: false })
   addPlayerSuccess$ = this.actions$.pipe(
     ofType<fromActions.AddPlayerSuccess>(fromActions.PlayersActionTypes.ADD_PLAYER_SUCCESS),
-    map(({payload}) => this.router.navigateByUrl('/management/players'))
+    map(() => this.router.navigateByUrl('/management/players'))
   );
 
   @Effect({ dispatch: false })
   editPlayerSuccess$ = this.actions$.pipe(
     ofType<fromActions.EditPlayerSuccess>(fromActions.PlayersActionTypes.EDIT_PLAYER_SUCCESS),
-    map(({payload}) => this.router.navigateByUrl('/management/players'))
+    map(() => this.router.navigateByUrl('/management/players'))
+  );
+
+  @Effect()
+  deletePlayers$ = this.actions$.pipe(
+    ofType<fromActions.DeletePlayer>(fromActions.PlayersActionTypes.DELETE_PLAYER),
+    switchMap(({payload}) =>
+      this.playersService.deletePlayer(payload.id).pipe(
+        map(() => new fromActions.DeletePlayerSuccess({id: payload.id})),
+        catchError(error => of(new fromActions.DeletePlayerFail(error)))
+      )
+    )
+  );
+
+  @Effect()
+  deletePlayersSuccess$ = this.actions$.pipe(
+    ofType<fromActions.DeletePlayerSuccess>(fromActions.PlayersActionTypes.DELETE_PLAYER_SUCCESS),
+    map(() => new fromActions.LoadPlayers())
   );
 }

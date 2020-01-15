@@ -79,11 +79,21 @@ export const getTeamsLoading = createSelector(
   fromTeams.getTeamsLoading
 );
 
-export const getSelectedTeam = createSelector(
-  getAllTeams,
-  (teams, props) => teams.find(team => team.id === props.id)
+export const getAllTeamsEntities = createSelector(
+  getTeamsState,
+  fromTeams.getTeamsEntities
 );
 
+export const getSelectedTeamId = createSelector(
+  getTeamsState,
+  fromTeams.getSelectedTeamId
+);
+
+export const getSelectedTeam = createSelector(
+  getAllTeamsEntities,
+  getSelectedTeamId,
+  (entities, selectedId) => entities && selectedId && entities[selectedId]
+);
 
 // Seasons state
 export const getSeasonsState = createSelector(

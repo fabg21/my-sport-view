@@ -1,7 +1,9 @@
-import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as fromTeams from '../actions/teams.action';
 import {TeamModel} from '../../models/team.model';
+import * as fromPlayers from '../actions/players.action';
+import {playerAdapter, PlayersState} from './players.reducer';
 
 export interface TeamsState extends EntityState<TeamModel> {
   loaded: boolean;
@@ -21,11 +23,12 @@ export function reducer(
   state = initialState,
   action: fromTeams.TeamsAction
 ): TeamsState {
-  switch(action.type) {
+  switch (action.type) {
     case fromTeams.TeamsActionTypes.LOAD_TEAMS: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        selectedTeamId: null
       };
     }
 
@@ -39,6 +42,63 @@ export function reducer(
         loading: false,
         loaded: false,
         selectedTeamId: null
+      };
+    }
+
+    case fromTeams.TeamsActionTypes.ADD_TEAM: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromTeams.TeamsActionTypes.ADD_TEAM_SUCCESS: {
+      return teamAdapter.upsertOne(action.payload.team, {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedTeamId: null,
+      });
+    }
+
+    case fromTeams.TeamsActionTypes.ADD_TEAM_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedTeamId: null
+      };
+    }
+
+    case fromTeams.TeamsActionTypes.EDIT_TEAM: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromTeams.TeamsActionTypes.EDIT_TEAM_SUCCESS: {
+      return teamAdapter.upsertOne(action.payload.team, {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedTeamId: null,
+      });
+    }
+
+    case fromTeams.TeamsActionTypes.EDIT_TEAM_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedTeamId: null
+      };
+    }
+
+    case fromTeams.TeamsActionTypes.SELECT_ONE_TEAM: {
+      return {
+        ...state,
+        selectedTeamId: action.payload.id
       };
     }
   }
@@ -62,3 +122,4 @@ export const getTeamsTotal = selectTotal;
 
 export const getTeamsLoading = (state: TeamsState) => state.loading;
 export const getTeamsLoaded = (state: TeamsState) => state.loaded;
+export const getSelectedTeamId = (state: TeamsState) => state.selectedTeamId;

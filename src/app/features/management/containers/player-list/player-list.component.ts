@@ -38,9 +38,10 @@ export class PlayerListComponent implements OnInit, OnDestroy {
   }
 
   delete(id) {
-    this.playerService.deletePlayer(id).pipe(
-      takeWhile(() => this.alive),
-    ).subscribe(x => this.store.dispatch(new fromStore.LoadPlayers()));
+    this.store.dispatch(new fromStore.DeletePlayer({ id }));
+    // this.playerService.deletePlayer(id).pipe(
+    //   takeWhile(() => this.alive),
+    // ).subscribe(x => this.store.dispatch(new fromStore.LoadPlayers()));
   }
 
   modify(player: PlayerModel) {

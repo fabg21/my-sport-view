@@ -75,7 +75,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'edit-team/:id',
+    path: 'edit-team',
     component: fromContainers.EditTeamComponent,
     data: {
       authorities: ['ROLE_ADMIN']

@@ -12,7 +12,10 @@ export enum PlayersActionTypes {
   EDIT_PLAYER_FAIL = '[PLAYERS] Edit Player Fail',
   ADD_PLAYER = '[PLAYERS] Add Player',
   ADD_PLAYER_SUCCESS = '[PLAYERS] Add Player Success',
-  ADD_PLAYER_FAIL = '[PLAYERS] Add Player Fail'
+  ADD_PLAYER_FAIL = '[PLAYERS] Add Player Fail',
+  DELETE_PLAYER = '[PLAYERS] Delete Player',
+  DELETE_PLAYER_SUCCESS = '[PLAYERS] Delete Player Success',
+  DELETE_PLAYER_FAIL = '[PLAYERS] Delete Player Fail',
 }
 
 export class LoadPlayers implements Action {
@@ -64,6 +67,21 @@ export class AddPlayerFail implements Action {
   constructor(public payload: { error: any }) {}
 }
 
+export class DeletePlayer implements Action {
+  readonly type = PlayersActionTypes.DELETE_PLAYER;
+  constructor(public payload: { id: number }) {}
+}
+
+export class DeletePlayerSuccess implements Action {
+  readonly type = PlayersActionTypes.DELETE_PLAYER_SUCCESS;
+  constructor(public payload: { id: number }) {}
+}
+
+export class DeletePlayerFail implements Action {
+  readonly type = PlayersActionTypes.DELETE_PLAYER_FAIL;
+  constructor(public payload: { error: any }) {}
+}
+
 // action types
 export type PlayersAction =
   LoadPlayers |
@@ -75,4 +93,7 @@ export type PlayersAction =
   AddPlayerFail |
   EditPlayer |
   EditPlayerSuccess |
-  EditPlayerFail;
+  EditPlayerFail |
+  DeletePlayer |
+  DeletePlayerSuccess |
+  DeletePlayerFail;

@@ -44,8 +44,8 @@ export class TeamListComponent implements OnInit, OnDestroy {
     ).subscribe(x => this.store.dispatch(new fromStore.LoadTeams()));
   }
 
-  modify(team: TeamModel) {
-    this.router.navigate(['/management/edit-team', team.id]);
+  editTeam(id: number) {
+    this.store.dispatch(new fromStore.SelectOneTeam({ id }));
+    this.router.navigateByUrl('/management/edit-team');
   }
-
 }

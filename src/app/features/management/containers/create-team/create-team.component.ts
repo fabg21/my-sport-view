@@ -10,9 +10,7 @@ import {takeWhile} from 'rxjs/operators';
   templateUrl: './create-team.component.html',
   styleUrls: ['./create-team.component.scss']
 })
-export class CreateTeamComponent implements OnDestroy {
-
-  alive = true;
+export class CreateTeamComponent {
 
   constructor(
     private router: Router,
@@ -26,17 +24,6 @@ export class CreateTeamComponent implements OnDestroy {
 
   createTeam(teamData) {
     teamData.logo = 'https://api.adorable.io/avatars/285/bad@adorable.io.png';
-    this.teamsService.createTeam(teamData).pipe(
-      takeWhile(() => this.alive)
-    ).subscribe(
-      x => {
-        this.store.dispatch(new fromStore.LoadTeams());
-        this.router.navigateByUrl('/management/teams');
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.alive = false;
+    this.store.dispatch(new fromStore.AddTeam({teamData}));
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs';
 import {TeamModel} from '../../models/team.model';
 import {ObservableInput} from 'observable-input/lib';
@@ -15,13 +15,16 @@ export class TeamListDisplayComponent {
   @ObservableInput()
   teams$: Observable<TeamModel[]>;
 
+  @Output()
+  editEvent = new EventEmitter<number>();
+
   displayedColumns: string[] = ['id', 'name', 'logo'];
 
   constructor(
     private router: Router
   ) {}
 
-  editTeam(row) {
-    this.router.navigate(['/management/edit-team', row.id]);
+  editTeam(idRow) {
+    this.editEvent.emit(idRow);
   }
 }

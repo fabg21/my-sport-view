@@ -99,6 +99,31 @@ export function reducer(
         selectedPlayerId: null
       };
     }
+
+    case fromPlayers.PlayersActionTypes.DELETE_PLAYER: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromPlayers.PlayersActionTypes.DELETE_PLAYER_SUCCESS: {
+      return playerAdapter.removeOne(action.payload.id, {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedPlayerId: null,
+      });
+    }
+
+    case fromPlayers.PlayersActionTypes.DELETE_PLAYER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedPlayerId: null
+      };
+    }
   }
   return state;
 }
