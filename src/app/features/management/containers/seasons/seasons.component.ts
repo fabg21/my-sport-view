@@ -1,30 +1,26 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PlayerModel} from '../../models/player.model';
-import {Store} from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import * as fromStore from '../../store';
-import {Router} from '@angular/router';
-import {PlayersService} from '../../services';
-import {takeWhile} from 'rxjs/operators';
-import {SeasonModel} from '../../models/season.model';
-import {TeamModel} from '../../models/team.model';
+import { SeasonModel } from '../../models/season.model';
+import { TeamModel } from '../../models/team.model';
 
 @Component({
   selector: 'app-seasons',
   templateUrl: './seasons.component.html',
   styleUrls: ['./seasons.component.scss']
 })
-export class SeasonsComponent implements OnInit, OnDestroy {
+export class SeasonsComponent implements OnInit {
 
   seasons$: Observable<SeasonModel[]>;
   teams$: Observable<TeamModel[]>;
 
-  alive = true;
-
   constructor(
     private store: Store<fromStore.ManagementState>,
     private router: Router,
-    private playerService: PlayersService
   ) { }
 
   ngOnInit() {
@@ -34,11 +30,12 @@ export class SeasonsComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromStore.LoadTeams());
   }
 
-  ngOnDestroy(): void {
-    this.alive = false;
-  }
-
   newSeason() {
     this.router.navigateByUrl('/management/create-season');
+  }
+
+  configureSeason(seasonId) {
+    this.store.dispatch(new fromStore.SelectOneSeason({id: seasonId}));
+    this.router.navigateByUrl('/management/season');
   }
 }

@@ -99,7 +99,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'season/:id',
+    path: 'season',
     component: fromContainers.SeasonComponent,
     data: {
       authorities: ['ROLE_ADMIN']

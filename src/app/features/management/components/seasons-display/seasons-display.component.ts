@@ -2,7 +2,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ObservableInput } from 'observable-input/lib';
 
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 
 import { SeasonModel } from '../../models/season.model';
@@ -28,6 +28,9 @@ export class SeasonsDisplayComponent implements OnInit {
   @ObservableInput()
   teams$: Observable<TeamModel[]>;
 
+  @Output()
+  configureEvent = new EventEmitter<number>();
+
   seasonsByTeam$: Observable<SeasonByTeamModel[]>;
 
   constructor(private router: Router) {}
@@ -39,7 +42,7 @@ export class SeasonsDisplayComponent implements OnInit {
   }
 
   configureSeason(seasonId) {
-    this.router.navigate(['/management/season', seasonId]);
+    this.configureEvent.emit(seasonId);
   }
 }
 

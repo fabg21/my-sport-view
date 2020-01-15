@@ -116,7 +116,22 @@ export const getSeasonsLoading = createSelector(
   fromSeasons.getSeasonsLoading
 );
 
+export const getAllSeasonsEntities = createSelector(
+  getSeasonsState,
+  fromSeasons.getSeasonsEntities
+);
+
+export const getSelectedSeasonId = createSelector(
+  getSeasonsState,
+  fromSeasons.getSelectedSeasonId
+);
+
 export const getSelectedSeason = createSelector(
-  getAllSeasons,
-  (seasons, props) => seasons.find(season => season.id === props.id)
+  getAllSeasonsEntities,
+  getSelectedSeasonId,
+  (entities, selectedId) => {
+    console.log('FMN entities', entities);
+    console.log('FMN selectedId', selectedId);
+    return entities && selectedId && entities[selectedId];
+  }
 );

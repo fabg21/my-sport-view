@@ -2,7 +2,6 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as fromSeasons from '../actions/seasons.action';
 import { SeasonModel } from '../../models/season.model';
-import {playerAdapter} from './players.reducer';
 
 export interface SeasonsState extends EntityState<SeasonModel> {
   loaded: boolean;
@@ -42,6 +41,63 @@ export function reducer(
         loaded: false
       };
     }
+
+    case fromSeasons.SeasonsActionTypes.SELECT_ONE_SEASON: {
+      return {
+        ...state,
+        selectedSeasonId: action.payload.id
+      };
+    }
+
+    case fromSeasons.SeasonsActionTypes.ADD_SEASON: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromSeasons.SeasonsActionTypes.ADD_SEASON_SUCCESS: {
+      return seasonAdapter.upsertOne(action.payload.season, {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedSeasonId: null,
+      });
+    }
+
+    case fromSeasons.SeasonsActionTypes.ADD_SEASON_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedSeasonId: null
+      };
+    }
+
+    case fromSeasons.SeasonsActionTypes.EDIT_SEASON: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromSeasons.SeasonsActionTypes.EDIT_SEASON_SUCCESS: {
+      return seasonAdapter.upsertOne(action.payload.season, {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedSeasonId: null,
+      });
+    }
+
+    case fromSeasons.SeasonsActionTypes.EDIT_SEASON_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        selectedSeasonId: null
+      };
+    }
   }
   return state;
 }
@@ -63,3 +119,4 @@ export const getSeasonsTotal = selectTotal;
 
 export const getSeasonsLoading = (state: SeasonsState) => state.loading;
 export const getSeasonsLoaded = (state: SeasonsState) => state.loaded;
+export const getSelectedSeasonId = (state: SeasonsState) => state.selectedSeasonId;
