@@ -5,5 +5,6 @@ export interface SeasonModel {
   teamIdId?: number;
   start?: Date;
   end?: Date;
+  current: boolean;
   players?: PlayerModel[];
 }

@@ -1,14 +1,13 @@
-import {Observable} from 'rxjs';
-import {ObservableInput} from 'observable-input/lib';
+import { Observable } from 'rxjs';
+import { ObservableInput } from 'observable-input/lib';
 
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
 
-import {SeasonModel} from '../../models/season.model';
-import {TeamModel} from '../../models/team.model';
-import {PlayerModel} from '../../models/player.model';
-import {filter, map, tap} from 'rxjs/operators';
+import { SeasonModel } from '../../models/season.model';
+import { TeamModel } from '../../models/team.model';
+import { PlayerModel } from '../../models/player.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -24,6 +23,7 @@ class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./season-form.component.scss']
 })
 export class SeasonFormComponent implements OnInit, OnDestroy {
+  color = 'accent';
 
   @Input()
   season: SeasonModel;
@@ -59,12 +59,14 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
         start: null,
         end: null,
         teamIdId: null,
+        current: false,
         players: []
       };
     } else {
       this.seasonForm.get('start').patchValue(new Date(this.season.start));
       this.seasonForm.get('end').patchValue(new Date(this.season.end));
       this.seasonForm.get('teamIdId').patchValue(this.season.teamIdId);
+      this.seasonForm.get('current').patchValue(this.season.current);
       this.seasonForm.get('teamIdId').disable();
       this.selectedPlayers = Object.assign([], this.season.players);
     }
@@ -74,13 +76,15 @@ export class SeasonFormComponent implements OnInit, OnDestroy {
     this.seasonForm = this.formBuilder.group({
       start: new FormControl('', Validators.required),
       end: new FormControl('', Validators.required),
-      teamIdId: new FormControl('', Validators.required)
+      teamIdId: new FormControl('', Validators.required),
+      current: new FormControl('', Validators.required),
     });
   }
 
   get start() { return this.seasonForm.get('start'); }
   get end() { return this.seasonForm.get('end'); }
   get teamIdId() { return this.seasonForm.get('teamIdId'); }
+  get current() { return this.seasonForm.get('current'); }
 
   saveSeason(season) {
     const seasonToSave = {

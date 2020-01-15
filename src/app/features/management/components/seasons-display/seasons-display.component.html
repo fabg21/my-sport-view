@@ -12,6 +12,7 @@
       <mat-list-item *ngFor="let season of seasonByTeam.seasons" (click)="configureSeason(season.id)">
         <mat-icon mat-list-icon>calendar_today</mat-icon>
         <h4 mat-line>Season : {{season.start}} / {{season.end}}</h4>
+        <p mat-line> Current : {{season.current}} </p>
       </mat-list-item>
     </mat-list>
   </mat-expansion-panel>
