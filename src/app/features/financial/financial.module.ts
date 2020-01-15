@@ -8,7 +8,7 @@ import { MatTableModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FinancialComponent } from './containers';
-import { AuthGuard } from 'src/app/core/guards/auth.guard';
+// import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 // state
 import { reducers, effects } from './store';
@@ -27,8 +27,8 @@ const routes: Routes = [
   {
     path: '',
     component: FinancialComponent,
-    data: { authorities: ['ROLE_ADMIN'] },
-    canActivate: [AuthGuard]
+    data: { authorities: ['ROLE_ADMIN'] }
+    // canActivate: [AuthGuard]
   }
 ];
 
