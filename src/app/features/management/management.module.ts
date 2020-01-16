@@ -105,6 +105,14 @@ const routes: Routes = [
       authorities: ['ROLE_ADMIN']
     },
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'calendar',
+    component: fromContainers.CalendarComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    },
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -134,7 +142,6 @@ const routes: Routes = [
   declarations: [
     ...fromContainers.containers,
     ...fromComponents.components,
-    // HasAnyAuthorityDirective
   ],
   exports: [
     ...fromContainers.containers,

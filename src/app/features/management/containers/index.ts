@@ -7,6 +7,7 @@ import {EditTeamComponent} from './edit-team/edit-team.component';
 import {SeasonsComponent} from './seasons/seasons.component';
 import {SeasonComponent} from './season/season.component';
 import {CreateSeasonComponent} from './create-season/create-season.component';
+import {CalendarComponent} from './calendar/calendar.component';
 
 export const containers: any[] = [
   PlayerListComponent,
@@ -17,7 +18,8 @@ export const containers: any[] = [
   EditTeamComponent,
   SeasonsComponent,
   SeasonComponent,
-  CreateSeasonComponent
+  CreateSeasonComponent,
+  CalendarComponent
 ];
 
 export * from './player-list/player-list.component';
@@ -29,3 +31,4 @@ export * from './edit-team/edit-team.component';
 export * from './seasons/seasons.component';
 export * from './season/season.component';
 export * from './create-season/create-season.component';
+export * from './calendar/calendar.component';
