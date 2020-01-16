@@ -1,1 +1,33 @@
-<p>calendar works!</p>
+<div class="player-list-page">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 fxFlex="20">CALENDAR</h2>
+  </div>
+  <div *ngIf="teams$ | async as teams; else noTeam">
+    <mat-form-field>
+      <mat-label>Team selection</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let team of teams" [value]="team.id" (onSelectionChange)="selectTeam(team)">
+          {{team.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div *ngIf="season$ | async as season; else noSeason" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxFlex="10">Current Season :</div>
+    <mat-chip-list fxFlex>
+      <mat-chip [color]="'primary'">
+        From :  {{season.start | date}} - To : {{season.end | date}}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+</div>
+
+<ng-template #noTeam>
+  No teams created yet !
+</ng-template>
+
+<ng-template #noSeason>
+  <div *ngIf="selectedTeam">
+    There is no season declared as Current for this Team. You can only manage the calendar of the current season.
+  </div>
+</ng-template>

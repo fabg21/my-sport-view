@@ -24,10 +24,10 @@ export class SeasonsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.seasons$ = this.store.select(fromStore.getAllSeasons);
     this.store.dispatch(new fromStore.LoadSeasons());
-    this.teams$ = this.store.select(fromStore.getAllTeams);
     this.store.dispatch(new fromStore.LoadTeams());
+    this.seasons$ = this.store.select(fromStore.getAllSeasons);
+    this.teams$ = this.store.select(fromStore.getAllTeams);
   }
 
   newSeason() {

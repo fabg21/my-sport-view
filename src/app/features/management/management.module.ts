@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatChipsModule,
   MatDatepickerModule,
   MatExpansionModule,
   MatFormFieldModule,
@@ -134,6 +134,7 @@ const routes: Routes = [
     MatTableModule,
     MatListModule,
     MatSelectModule,
+    MatChipsModule,
     MatSlideToggleModule,
     DragDropModule,
     FormsModule,
