@@ -1,4 +1,4 @@
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
@@ -14,7 +14,9 @@ import { BackendService } from './backend.service';
 export class AccountService extends BackendService {
   private userIdentity: Account;
   private authenticated = false;
-  private authenticationState = new Subject<any>();
+  private authenticationState = new BehaviorSubject<Account>(null);
+
+  public userIdentity$: Observable<Account | null> = this.authenticationState.asObservable();
 
   apiUrl = environment.apiUrl;
   authenticateUrl = this.apiUrl + '/authenticate';
@@ -90,7 +92,7 @@ export class AccountService extends BackendService {
     );
   }
 
-  getAuthenticationState(): Observable<any> {
+  getAuthenticationState(): Observable<Account> {
     return this.authenticationState.asObservable();
   }
 

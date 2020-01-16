@@ -1,0 +1,5 @@
+<form [formGroup]="uploadForm">
+  <app-file-upload formControlName="file" [reset]="resetInput$" (fileUploaded)="uploadFile($event)"
+    (onCancelAttachment)="cancelAttachment($event)">
+  </app-file-upload>
+</form>
