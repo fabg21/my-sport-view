@@ -5,8 +5,8 @@
   <div *ngIf="teams$ | async as teams; else noTeam">
     <mat-form-field>
       <mat-label>Team selection</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let team of teams" [value]="team.id" (onSelectionChange)="selectTeam(team)">
+      <mat-select (selectionChange)="selectTeam($event)">
+        <mat-option *ngFor="let team of teams" [value]="team">
           {{team.name}}
         </mat-option>
       </mat-select>
@@ -20,6 +20,9 @@
       </mat-chip>
     </mat-chip-list>
   </div>
+  <div *ngIf="calendar$ | async as calendar; else noCalendar" fxLayout="row" fxLayoutAlign="space-between center">
+    Calendar: {{calendar | json}}
+  </div>
 </div>
 
 <ng-template #noTeam>
@@ -31,3 +34,10 @@
     There is no season declared as Current for this Team. You can only manage the calendar of the current season.
   </div>
 </ng-template>
+
+<ng-template #noCalendar>
+  <div *ngIf="selectedTeam">
+    There is no Calendar defined yet for this season.
+  </div>
+</ng-template>
+

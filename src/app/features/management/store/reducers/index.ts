@@ -3,17 +3,21 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromPlayers from './players.reducer';
 import * as fromTeams from './teams.reducer';
 import * as fromSeasons from './seasons.reducer';
+import * as fromCalendars from './calendars.reducer';
+import {CalendarModel} from '../../models/calendar.model';
 
 export interface ManagementState {
   players: fromPlayers.PlayersState;
   teams: fromTeams.TeamsState;
   seasons: fromSeasons.SeasonsState;
+  calendars: fromCalendars.CalendarsState;
 }
 
 export const reducers: ActionReducerMap<ManagementState> = {
   players: fromPlayers.reducer,
   teams: fromTeams.reducer,
-  seasons: fromSeasons.reducer
+  seasons: fromSeasons.reducer,
+  calendars: fromCalendars.reducer
 };
 
 export const getManagementState = createFeatureSelector<ManagementState>(
@@ -130,8 +134,50 @@ export const getSelectedSeason = createSelector(
   getAllSeasonsEntities,
   getSelectedSeasonId,
   (entities, selectedId) => {
-    console.log('FMN entities', entities);
-    console.log('FMN selectedId', selectedId);
     return entities && selectedId && entities[selectedId];
   }
+);
+
+
+// Calendars state
+export const getCalendarsState = createSelector(
+  getManagementState,
+  (state: ManagementState) => state.calendars
+);
+
+export const getAllCalendars = createSelector(
+  getCalendarsState,
+  fromCalendars.getAllCalendars
+);
+
+export const getAllCalendarsEntities = createSelector(
+  getCalendarsState,
+  fromCalendars.getCalendarsEntities
+);
+
+export const getSelectedCalendarId = createSelector(
+  getCalendarsState,
+  fromCalendars.getSelectedCalendarId
+);
+
+export const getSelectedCalendar = createSelector(
+  getAllCalendarsEntities,
+  getSelectedCalendarId,
+  (entities, selectedId) => entities && selectedId && entities[selectedId]
+);
+
+export const getCalendarsLoaded = createSelector(
+  getCalendarsState,
+  fromCalendars.getCalendarsLoaded
+);
+
+export const getCalendarsLoading = createSelector(
+  getCalendarsState,
+  fromCalendars.getCalendarsLoading
+);
+
+export const getCalendarFromSeason  = (seasonId: number) => createSelector(
+  getAllCalendars,
+  (calendars) => calendars && seasonId && calendars.find(
+    calendar => calendar.seasonId && calendar.seasonId === seasonId)
 );
