@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
+
+import { Component } from '@angular/core';
+
 import { AccountService } from '../services/account.service';
 
 @Component({
@@ -8,6 +11,10 @@ import { AccountService } from '../services/account.service';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent {
+  public owner$: Observable<string> = this.accountService.userIdentity$.pipe(
+    pluck('email')
+  );
+
   constructor(private accountService: AccountService) {}
 
   logout() {

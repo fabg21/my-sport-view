@@ -1,0 +1,26 @@
+.dropzone {
+  cursor: pointer;
+}
+
+.attach-icon {
+  margin-left: 20px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.attachment-list__container {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.attachment-list__container ::ng-deep .mat-chip.mat-standard-chip {
+  background-color: rgba(black, 0.1);
+  color: #0074bc;
+}
+
+.icon-avatar {
+  color: rgba(black, 0.2);
+}
+
+.attachment-list__container ::ng-deep .mat-chip.mat-standard-chip .mat-chip-remove {
+  color: rgba(black, 0.4);
+}

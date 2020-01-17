@@ -6,6 +6,7 @@ import { ShellComponent } from './shell.component';
 import { AppRoutingModule } from '../../app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatMenuModule } from '@angular/material';
+import { FileUploadModule } from '../file-upload/file-upload.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { MatButtonModule, MatMenuModule } from '@angular/material';
     FlexLayoutModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    FileUploadModule
   ],
   declarations: [ShellComponent],
   exports: [ShellComponent],
