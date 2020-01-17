@@ -23,6 +23,12 @@
       End is <strong>required</strong>
     </mat-error>
   </mat-form-field>
+  <mat-slide-toggle
+      class="example-margin"
+      [color]="color"
+      formControlName="current">
+      Current
+  </mat-slide-toggle>
   <mat-divider class="player-selection-divider"></mat-divider>
   <app-player-selection [allPlayers]="allPlayers$ | async" [selectedPlayers]="selectedPlayers"></app-player-selection>
   <div class="div-btn" fxLayoutAlign="center center">

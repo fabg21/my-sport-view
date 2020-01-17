@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
   MatCardModule,
+  MatChipsModule,
   MatDatepickerModule,
   MatExpansionModule,
   MatFormFieldModule,
@@ -15,6 +16,7 @@ import {
   MatListModule,
   MatNativeDateModule,
   MatSelectModule,
+  MatSlideToggleModule,
   MatTableModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -106,6 +108,14 @@ const routes: Routes = [
       authorities: ['ROLE_ADMIN']
     }
     // canActivate: [AuthGuard]
+  },
+  {
+    path: 'calendar',
+    component: fromContainers.CalendarComponent,
+    data: {
+      authorities: ['ROLE_ADMIN']
+    }
+    //canActivate: [AuthGuard]
   }
 ];
 
@@ -127,6 +137,8 @@ const routes: Routes = [
     MatTableModule,
     MatListModule,
     MatSelectModule,
+    MatChipsModule,
+    MatSlideToggleModule,
     DragDropModule,
     FormsModule,
     ReactiveFormsModule
