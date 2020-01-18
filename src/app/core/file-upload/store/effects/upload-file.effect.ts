@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 
 import { FileUploadService } from '../../services/file-upload.service';
-import { remoteActions as fromFileUpload } from '../actions';
+import * as fromFileUpload from '../actions';
 
 @Injectable({
   providedIn: 'root'

@@ -39,7 +39,7 @@ describe('FileUploadComponent', () => {
   });
 
   it('should cancel attachment', () => {
-    const spy = jest.spyOn(component.onCancelAttachment, 'emit');
+    const spy = jest.spyOn(component.cancelAttachment, 'emit');
     const filename = 'testFile.json';
 
     component.cancelAttachment(filename);

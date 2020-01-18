@@ -1,4 +1,4 @@
-import { remoteActions as fromActions } from '../actions';
+import * as fromActions from '../actions';
 import { UploadStatus } from '../../models';
 
 export interface FileUploadState {
@@ -107,3 +107,5 @@ export const getFailed = (state: FileUploadState): boolean =>
 
 export const getCompleted = (state: FileUploadState): boolean =>
   state.status === UploadStatus.Completed;
+
+export const getFiles = (state: FileUploadState): any => state.files;

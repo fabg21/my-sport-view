@@ -1,11 +1,5 @@
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import {
-  distinctUntilChanged,
-  startWith,
-  tap,
-  takeUntil
-} from 'rxjs/operators';
 
 import {
   Component,
@@ -18,6 +12,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import * as fromStore from '../../store';
 import { FileType } from '../../models';
+import { map, filter, concatMap, concatAll } from 'rxjs/operators';
+import { FileUploadService } from '../../services';
 
 @Component({
   selector: 'app-file-uploader',
@@ -27,8 +23,8 @@ import { FileType } from '../../models';
 export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input() requieredFileTypes: FileType[];
   @Input() ownerId: string; // use observable and make it reactive.
-  @Input() standalone = false;
   @Input() maxTotalFilesSize$: Observable<number>;
+
   private resetInput: Subject<void> = new Subject();
   public resetInput$ = this.resetInput.asObservable();
 
@@ -44,7 +40,18 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  constructor(private store$: Store<fromStore.UploadState>) {}
+  public files$ = this.store$.pipe(
+    select(fromStore.selectFiles),
+    map(Object.keys),
+    filter(arr => arr.length > 0),
+    concatAll(),
+    concatMap(fileName => this.service.getFileUrl(fileName, 'avatars'))
+  );
+
+  constructor(
+    private store$: Store<fromStore.UploadState>,
+    private service: FileUploadService
+  ) {}
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
@@ -53,26 +60,6 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
         requiredTypes(this.requieredFileTypes)
       ])
     });
-
-    // if (this.maxTotalFilesSize$) {
-    //   this.maxTotalFilesSize$
-    //     .pipe(takeUntil(this.destroy$))
-    //     .subscribe(size =>
-    //       this.store$.dispatch(
-    //         new fromStore.localActions.LocalUploadUpdateMaxTotalFilesSize(size)
-    //       )
-    //     );
-    // }
-
-    // this.store$
-    //   .pipe(
-    //     select(fromStore.getFilesSize),
-    //     startWith(0),
-    //     distinctUntilChanged((x, y) => x < y),
-    //     tap(() => this.resetInput.next()),
-    //     takeUntil(this.destroy$)
-    //   )
-    //   .subscribe();
   }
 
   @HostListener('window:beforeunload')
@@ -81,31 +68,19 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   uploadFile(event: File[]) {
-    if (this.standalone) {
-      this.store$.dispatch(
-        new fromStore.remoteActions.UploadRequest({
-          file: event[0],
-          ownerId: this.ownerId
-        }) // TODO : handle proper multi in remote.
-      );
-    } else {
-      this.store$.dispatch(
-        new fromStore.localActions.LocalUploadRequest({ files: event })
-      );
-    }
+    this.store$.dispatch(
+      new fromStore.UploadRequest({
+        file: event[0],
+        ownerId: this.ownerId
+      }) // TODO : handle proper multi in remote.
+    );
   }
 
-  cancelAttachment(event: string) {
-    if (!this.standalone) {
-      this.store$.dispatch(
-        new fromStore.localActions.LocalUploadCancel({ name: event })
-      );
-    }
-  }
+  cancelAttachment(event: string) {}
 }
 
 function requiredTypes(fileTypes: Array<FileType>) {
-  return function(control: FormControl) {
+  return (control: FormControl) => {
     const file = control.value;
     if (file) {
       const extension = file.name.split('.')[1].toLowerCase();

@@ -1,26 +1,14 @@
 .dropzone {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
 }
 
-.attach-icon {
-  margin-left: 20px;
-  color: rgba(0, 0, 0, 0.54);
-}
-
-.attachment-list__container {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.attachment-list__container ::ng-deep .mat-chip.mat-standard-chip {
-  background-color: rgba(black, 0.1);
-  color: #0074bc;
-}
-
-.icon-avatar {
-  color: rgba(black, 0.2);
-}
-
-.attachment-list__container ::ng-deep .mat-chip.mat-standard-chip .mat-chip-remove {
-  color: rgba(black, 0.4);
+.uploadfilecontainer {
+  min-height: 25px;
+  min-width: 25px;
+  margin: 20px auto;
+  border: 2px dashed #1c8adb;
+  border-radius: 10px;
 }

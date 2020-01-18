@@ -1,4 +1,20 @@
-<button mat-mini-fab (click)="fileInput.click()">
-  <mat-icon>attachment</mat-icon>
-</button>
-<input #fileInput multiple="multiple" type="file" [ngStyle]="{'display': 'none'}"/>
+<ng-container *ngIf="iconOrZone === 'icon'; else zone">
+  <button mat-mini-fab (click)="fileInput.click()">
+    <mat-icon>attachment</mat-icon>
+  </button>
+</ng-container>
+<ng-template #zone>
+  <div
+    (click)="fileInput.click()"
+    class="dropzone"
+    [class.uploadfilecontainer]="border"
+  >
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+<input
+  #fileInput
+  multiple="multiple"
+  type="file"
+  [ngStyle]="{ display: 'none' }"
+/>

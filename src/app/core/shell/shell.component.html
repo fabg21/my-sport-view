@@ -5,11 +5,14 @@
         <mat-icon>sports_soccer</mat-icon>
         MY SPORT VIEW
       </span>
-      <app-file-uploader [standalone]="true" [ownerId]="owner$ | async"></app-file-uploader>
     </div>
     <div fxFlex>
       <div fxFlex="50%">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">

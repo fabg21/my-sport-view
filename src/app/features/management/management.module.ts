@@ -34,6 +34,7 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
+import { FileUploadModule } from 'src/app/core/file-upload/file-upload.module';
 
 // routes
 const routes: Routes = [
@@ -141,7 +142,8 @@ const routes: Routes = [
     MatSlideToggleModule,
     DragDropModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule
   ],
   declarations: [
     ...fromContainers.containers,

@@ -9,40 +9,48 @@ export const selectUploadFileState = createSelector(
 
 export const selectUploadFileError = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getError
+  fromReducer.getError
 );
 
 export const selectUploadFileReady = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getReady
+  fromReducer.getReady
 );
 
 export const selectUploadFileRequested = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getRequested
+  fromReducer.getRequested
 );
 
 export const selectUploadFileStarted = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getStarted
+  fromReducer.getStarted
 );
 
 export const selectUploadFileProgress = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getProgress
+  fromReducer.getProgress
 );
 
 export const selectUploadFileInProgress = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getInProgress
+  fromReducer.getInProgress
 );
 
 export const selectUploadFileFailed = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getFailed
+  fromReducer.getFailed
 );
 
 export const selectUploadFileCompleted = createSelector(
   selectUploadFileState,
-  fromReducer.fromFileUpload.getCompleted
+  fromReducer.getCompleted
 );
+
+export const selectFiles = createSelector(
+  selectUploadFileState,
+  fromReducer.getFiles
+);
+
+export const selectFilesById = (fileId: string) =>
+  createSelector(selectFiles, files => files[fileId]);

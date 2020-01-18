@@ -1,19 +1,21 @@
-import { ActionReducerMap, MemoizedSelector, createFeatureSelector } from '@ngrx/store';
+import {
+  ActionReducerMap,
+  MemoizedSelector,
+  createFeatureSelector
+} from '@ngrx/store';
 import * as fromFileUpload from './upload-file.reducer';
-import * as fromLocalFileUpload from './local-upload.reducer';
 
 export interface UploadState {
   files: fromFileUpload.FileUploadState;
-  localFiles: fromLocalFileUpload.LocalFileUploadState;
 }
 
 export const reducers: ActionReducerMap<UploadState> = {
-  files: fromFileUpload.reducer,
-  localFiles: fromLocalFileUpload.reducer
+  files: fromFileUpload.reducer
 };
 
-export const selectUploadFeatureState: MemoizedSelector<object, UploadState> = createFeatureSelector<UploadState>(
-  'uploads'
-);
+export const selectUploadFeatureState: MemoizedSelector<
+  object,
+  UploadState
+> = createFeatureSelector<UploadState>('uploads');
 
-export { fromFileUpload, fromLocalFileUpload };
+export * from './upload-file.reducer';

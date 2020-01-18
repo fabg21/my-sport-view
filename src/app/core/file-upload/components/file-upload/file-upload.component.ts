@@ -30,15 +30,17 @@ export class FileUploadComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
   @Input() progress: number;
   @Input() reset: Observable<void>;
+  @Input() iconOrZone: 'icon' | 'zone' = 'zone';
+  @Input() border = true;
 
   @Output() fileUploaded: EventEmitter<File[]> = new EventEmitter();
-  @Output() onCancelAttachment: EventEmitter<string> = new EventEmitter();
+  @Output() attachmentCanceled: EventEmitter<string> = new EventEmitter();
 
   @ViewChild('fileInput', { static: true }) fileInput: ElementRef<
     HTMLInputElement
   >;
 
-  onChange: Function;
+  onChange: () => any;
 
   public files: File[] = [];
 
@@ -84,16 +86,16 @@ export class FileUploadComponent
     this.files = null;
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: () => any) {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: Function) {}
+  registerOnTouched(fn: () => any) {}
 
   cancelAttachment(name?): void {
     this.files = null;
     if (name) {
-      this.onCancelAttachment.emit(name);
+      this.attachmentCanceled.emit(name);
     }
     this.fileInput.nativeElement.value = '';
   }
