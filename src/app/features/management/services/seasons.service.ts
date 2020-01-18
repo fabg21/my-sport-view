@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { BackendService } from '../../../core/services/backend.service';
 import { environment } from '../../../../environments/environment';
 import { SeasonModel } from '../models/season.model';
-import {TeamModel} from '../models/team.model';
 
 @Injectable()
 export class SeasonsService extends BackendService {
