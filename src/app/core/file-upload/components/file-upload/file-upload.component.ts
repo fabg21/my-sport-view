@@ -1,9 +1,7 @@
-import { Observable, Subject } from 'rxjs';
-import { tap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import {
   Component,
-  OnInit,
   OnDestroy,
   Input,
   HostListener,
@@ -26,10 +24,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
     }
   ]
 })
-export class FileUploadComponent
-  implements OnInit, OnDestroy, ControlValueAccessor {
+export class FileUploadComponent implements OnDestroy, ControlValueAccessor {
   @Input() progress: number;
-  @Input() reset: Observable<void>;
   @Input() iconOrZone: 'icon' | 'zone' = 'zone';
   @Input() border = true;
 
@@ -47,15 +43,6 @@ export class FileUploadComponent
   private destroy$: Subject<void> = new Subject();
 
   constructor(private host: ElementRef<HTMLElement>) {}
-
-  ngOnInit(): void {
-    this.reset
-      .pipe(
-        tap(() => this.cancelAttachment()),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
-  }
 
   @HostListener('window.beforeunload')
   ngOnDestroy(): void {

@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { FileUploadModule } from './core/file-upload/file-upload.module';
+import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [AppRoutingModule, CoreModule, FileUploadModule],
+  imports: [AppRoutingModule, CoreModule, SharedModule, FileUploadModule],
   providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
   bootstrap: [AppComponent]
 })

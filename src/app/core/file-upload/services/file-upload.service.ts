@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { mapTo } from 'rxjs/operators';
+import { BucketDestination } from '../models/bucket';
 
 @Injectable()
 export class FileUploadService {
@@ -10,7 +11,10 @@ export class FileUploadService {
 
   constructor(private http: HttpClient) {}
 
-  public uploadFile(file: File): Observable<HttpEvent<{}>> {
+  public uploadFile(
+    file: File,
+    destination: BucketDestination
+  ): Observable<HttpEvent<{}>> {
     const formData = new FormData();
 
     formData.append('file', file, file.name);
@@ -22,7 +26,7 @@ export class FileUploadService {
 
     const req = new HttpRequest(
       'POST',
-      `${this.API_UPLOAD_BASE_URL}/upload/avatars`,
+      `${this.API_UPLOAD_BASE_URL}/upload/${destination}`,
       formData,
       options
     );

@@ -1,10 +1,5 @@
 <form class="container" [formGroup]="uploadForm">
-  <app-file-upload
-    formControlName="file"
-    [reset]="resetInput$"
-    (fileUploaded)="uploadFile($event)"
-    (onCancelAttachment)="cancelAttachment($event)"
-  >
+  <app-file-upload formControlName="file" (fileUploaded)="uploadFile($event)">
     <div class="content-wrapper">
       <ng-content></ng-content>
     </div>

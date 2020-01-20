@@ -12,8 +12,8 @@
     </mat-error>
   </mat-form-field>
 
-  <app-file-uploader>
-    <img src="https://api.adorable.io/avatars/285/bad@adorable.io.png" alt="" />
+  <app-file-uploader [fileDestination]="'avatars'">
+    <app-image></app-image>
   </app-file-uploader>
   <div class="div-btn" fxLayoutAlign="center center">
     <button

@@ -22,7 +22,7 @@ export class UploadFileEffect {
   uploadRequestEffect$: Observable<Action> = this.actions$.pipe(
     ofType(fromFileUpload.UPLOAD_REQUEST),
     concatMap(({ payload }) =>
-      this.uploadService.uploadFile(payload.file).pipe(
+      this.uploadService.uploadFile(payload.file, payload.destination).pipe(
         takeUntil(this.actions$.pipe(ofType(fromFileUpload.UPLOAD_CANCEL))),
         map(getActionFromHttpEvent(payload.ownerId)),
         catchError(error => of(error))

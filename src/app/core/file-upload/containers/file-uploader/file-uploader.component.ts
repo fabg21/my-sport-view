@@ -14,6 +14,7 @@ import * as fromStore from '../../store';
 import { FileType } from '../../models';
 import { map, filter, concatMap, concatAll } from 'rxjs/operators';
 import { FileUploadService } from '../../services';
+import { BucketDestination } from '../../models/bucket';
 
 @Component({
   selector: 'app-file-uploader',
@@ -23,10 +24,7 @@ import { FileUploadService } from '../../services';
 export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input() requieredFileTypes: FileType[];
   @Input() ownerId: string; // use observable and make it reactive.
-  @Input() maxTotalFilesSize$: Observable<number>;
-
-  private resetInput: Subject<void> = new Subject();
-  public resetInput$ = this.resetInput.asObservable();
+  @Input() fileDestination: BucketDestination;
 
   public completed$: Observable<boolean>;
   public progress$: Observable<number>;
@@ -71,8 +69,9 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     this.store$.dispatch(
       new fromStore.UploadRequest({
         file: event[0],
-        ownerId: this.ownerId
-      }) // TODO : handle proper multi in remote.
+        ownerId: this.ownerId,
+        destination: this.fileDestination
+      })
     );
   }
 
