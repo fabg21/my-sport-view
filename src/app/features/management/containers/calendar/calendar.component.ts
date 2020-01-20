@@ -11,7 +11,7 @@ import { SeasonModel } from '../../models/season.model';
 import { CalendarModel } from '../../models/calendar.model';
 import { OpposingTeamModel } from '../../models/opposingTeam.model';
 import { CalendarsService } from '../../services';
-import { CreateMatchFormComponent } from '../../containers';
+import { CreateMatchFormComponent } from '../../containers/create-match-form/create-match-form.component';
 
 @Component({
   selector: 'app-calendar',
