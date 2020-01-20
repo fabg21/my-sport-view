@@ -12,7 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import * as fromStore from '../../store';
 import { FileType, BucketDestination } from '../../models';
-import { map, filter, concatMap, concatAll } from 'rxjs/operators';
+import { map, filter, concatMap, concatAll, tap } from 'rxjs/operators';
 import { FileUploadService } from '../../services';
 
 @Component({
@@ -42,7 +42,9 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     map(Object.keys),
     filter(arr => arr.length > 0),
     concatAll(),
-    concatMap(fileName => this.service.getFileUrl(fileName, 'avatars'))
+    tap(console.log),
+    concatMap(fileName => this.service.getFileUrl(fileName, 'avatars')),
+    tap(console.log)
   );
 
   constructor(

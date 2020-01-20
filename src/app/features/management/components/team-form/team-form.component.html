@@ -7,7 +7,7 @@
   </mat-form-field>
 
   <app-file-uploader [fileDestination]="'avatars'">
-    <app-image></app-image>
+    <app-image [imgSrc]="imgSrc$"></app-image>
   </app-file-uploader>
   <div class="div-btn" fxLayoutAlign="center center">
     <button mat-raised-button color="primary" type="submit" [disabled]="!teamForm.valid">

@@ -1,6 +1,6 @@
 <div class="img-container">
   <ng-container *ngIf="imgSrc | async as src; else defaultImg">
-    <img src="src" alt="" />
+    <img src="{{src}}" alt="" />
   </ng-container>
 </div>
 
