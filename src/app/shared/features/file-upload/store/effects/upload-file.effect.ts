@@ -36,6 +36,7 @@ const getActionFromHttpEvent = (ownerId: string) => (event: HttpEvent<any>) => {
     case HttpEventType.Sent: {
       return new fromFileUpload.UploadStarted();
     }
+    case HttpEventType.DownloadProgress:
     case HttpEventType.UploadProgress: {
       return new fromFileUpload.UploadProgress({
         progress: Math.round((100 * event.loaded) / event.total)
@@ -63,7 +64,6 @@ const getActionFromHttpEvent = (ownerId: string) => (event: HttpEvent<any>) => {
 };
 
 function getFileInfo(event: HttpResponse<any>) {
-  console.log('in get file info: ', event);
   const { body = {} } = event;
   const { etag = null, fileName: id = null, originalName: name = null } = body;
   return {
