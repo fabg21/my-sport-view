@@ -12,7 +12,7 @@ import { ErrorStateMatcher } from '@angular/material';
 
 import * as fromFileUpload from 'src/app/shared/features/file-upload/store';
 import { Store, select } from '@ngrx/store';
-import { map, filter, concatAll, concatMap } from 'rxjs/operators';
+import { map, filter, concatAll, switchMap } from 'rxjs/operators';
 import { FileUploadService } from 'src/app/shared/features/file-upload/services';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -41,7 +41,7 @@ export class TeamFormComponent implements OnInit {
     map(Object.keys),
     filter(arr => arr.length > 0),
     concatAll(),
-    concatMap(fileName => this.fileUpload.getFileUrl(fileName, 'avatars'))
+    switchMap(fileName => this.fileUpload.getFileUrl(fileName, 'avatars'))
   );
 
   @Input()
