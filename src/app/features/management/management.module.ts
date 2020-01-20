@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
+  MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
@@ -24,6 +25,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CreateMatchFormComponent } from './containers';
 
 // import {AuthGuard} from 'src/app/core/guards/auth.guard';
 import { reducers, effects } from './store';
@@ -36,6 +38,7 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
+
 
 // routes
 const routes: Routes = [
@@ -117,7 +120,7 @@ const routes: Routes = [
     data: {
       authorities: ['ROLE_ADMIN']
     }
-    //canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   }
 ];
 
@@ -141,6 +144,7 @@ const routes: Routes = [
     MatSelectModule,
     MatChipsModule,
     MatSlideToggleModule,
+    MatBottomSheetModule,
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,
@@ -148,6 +152,7 @@ const routes: Routes = [
   ],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
-  providers: [...fromServices.services]
+  providers: [...fromServices.services],
+  entryComponents: [CreateMatchFormComponent]
 })
 export class ManagementModule {}

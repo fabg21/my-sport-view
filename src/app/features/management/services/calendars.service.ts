@@ -19,4 +19,12 @@ export class CalendarsService extends BackendService {
   getCalendarFromSeason(seasonId: number): Observable<CalendarModel> {
     return this.get<CalendarModel>(this.calendarFromSeasonUrl + '/' + seasonId, false);
   }
+
+  mapCalendarWithNextMatches(calendar: CalendarModel): CalendarModel {
+    const currentDate = new Date();
+    return {
+      ...calendar,
+      matchs: calendar.matchs.filter(match => new Date(match.date).getTime() > currentDate.getTime())
+    };
+  }
 }

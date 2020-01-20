@@ -4,20 +4,22 @@ import * as fromPlayers from './players.reducer';
 import * as fromTeams from './teams.reducer';
 import * as fromSeasons from './seasons.reducer';
 import * as fromCalendars from './calendars.reducer';
-import {CalendarModel} from '../../models/calendar.model';
+import * as fromOpposingTeams from './opposingTeams.reducer';
 
 export interface ManagementState {
   players: fromPlayers.PlayersState;
   teams: fromTeams.TeamsState;
   seasons: fromSeasons.SeasonsState;
   calendars: fromCalendars.CalendarsState;
+  opposingTeams: fromOpposingTeams.OpposingTeampsState;
 }
 
 export const reducers: ActionReducerMap<ManagementState> = {
   players: fromPlayers.reducer,
   teams: fromTeams.reducer,
   seasons: fromSeasons.reducer,
-  calendars: fromCalendars.reducer
+  calendars: fromCalendars.reducer,
+  opposingTeams: fromOpposingTeams.reducer
 };
 
 export const getManagementState = createFeatureSelector<ManagementState>(
@@ -180,4 +182,31 @@ export const getCalendarFromSeason  = (seasonId: number) => createSelector(
   getAllCalendars,
   (calendars) => calendars && seasonId && calendars.find(
     calendar => calendar.seasonId && calendar.seasonId === seasonId)
+);
+
+
+// Opposing Team state
+export const getOpposingTeamsState = createSelector(
+  getManagementState,
+  (state: ManagementState) => state.opposingTeams
+);
+
+export const getAllOpposingTeams = createSelector(
+  getOpposingTeamsState,
+  fromOpposingTeams.getAllOpposingTeams
+);
+
+export const getAllOpposingTeamsEntities = createSelector(
+  getOpposingTeamsState,
+  fromOpposingTeams.getOpposingTeamsEntities
+);
+
+export const getOpposingTeamsLoaded = createSelector(
+  getOpposingTeamsState,
+  fromOpposingTeams.getOpposingTeamsLoaded
+);
+
+export const getOpposingTeamsLoading = createSelector(
+  getOpposingTeamsState,
+  fromOpposingTeams.getOpposingTeamsLoading
 );

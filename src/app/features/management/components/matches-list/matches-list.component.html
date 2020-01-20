@@ -1,0 +1,18 @@
+<mat-list>
+  <div>
+    <h4 mat-subheader>
+      {{title}} <mat-icon mat-list-icon (click)="addMatch()">add_circle_outlined</mat-icon>
+    </h4>
+  </div>
+  <ng-container *ngIf="matches && matches.length; else noMatch">
+    <mat-list-item *ngFor="let match of matches">
+      <mat-icon mat-list-icon>sports_soccer</mat-icon>
+      <h4 mat-line>{{ match.opponentId ? opposingTeams[match.opponentId] : 'NO OPPONENT' }} - {{ match.type }}</h4>
+      <p mat-line> {{ match.date | date }}</p>
+    </mat-list-item>
+  </ng-container>
+</mat-list>
+
+<ng-template #noMatch>
+  Not planned yet !
+</ng-template>

@@ -8,6 +8,7 @@ import {TeamFormComponent} from './team-form/team-form.component';
 import {SeasonsDisplayComponent} from './seasons-display/seasons-display.component';
 import {SeasonFormComponent} from './season-form/season-form.component';
 import {PlayerSelectionComponent} from './player-selection/player-selection.component';
+import {MatchesListComponent} from './matches-list/matches-list.component';
 
 export const components: any[] = [
   SearchPlayerComponent,
@@ -19,7 +20,8 @@ export const components: any[] = [
   TeamFormComponent,
   SeasonsDisplayComponent,
   SeasonFormComponent,
-  PlayerSelectionComponent
+  PlayerSelectionComponent,
+  MatchesListComponent,
 ];
 
 export * from './search-player/search-player.component';
@@ -32,3 +34,4 @@ export * from './team-form/team-form.component';
 export * from './seasons-display/seasons-display.component';
 export * from './season-form/season-form.component';
 export * from './player-selection/player-selection.component';
+export * from './matches-list/matches-list.component';

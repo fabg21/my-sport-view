@@ -8,4 +8,5 @@ export interface MatchModel {
   result?: number;
   scoreFor?: number;
   scoreAgainst?: string;
+  opponentId?: number;
 }

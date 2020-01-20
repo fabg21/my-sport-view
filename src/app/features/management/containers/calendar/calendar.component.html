@@ -20,8 +20,14 @@
       </mat-chip>
     </mat-chip-list>
   </div>
-  <div *ngIf="calendar$ | async as calendar; else noCalendar" fxLayout="row" fxLayoutAlign="space-between center">
-    Calendar: {{calendar | json}}
+  <div *ngIf="calendar$ | async as calendar; else noCalendar" fxLayout="row" fxLayoutAlign="space-between center" class="next-games">
+    <app-matches-list
+      [matches]="calendar.matchs"
+      [opposingTeams]="opposingTeams"
+      [title]="'Next matches :'"
+      (addMatchEvent)="addNextMatch()"
+    >
+    </app-matches-list>
   </div>
 </div>
 
@@ -40,4 +46,3 @@
     There is no Calendar defined yet for this season.
   </div>
 </ng-template>
-

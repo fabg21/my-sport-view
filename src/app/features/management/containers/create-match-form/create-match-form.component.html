@@ -1,0 +1,42 @@
+<div class="create-match-form">
+  <form [formGroup]="createMatchForm" (ngSubmit)="createMatch(createMatchForm.value)" fxLayout="column" fxLayoutAlign="center start">
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type" >
+        <mat-option *ngFor="let type of types" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" [errorStateMatcher]="matcher">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="date.hasError('required')">
+        Date is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput id="place" placeholder="Place" formControlName="place" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="place.hasError('required')">
+        Place is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Opponent</mat-label>
+      <mat-select formControlName="opponent" *ngIf="opponents$ | async as opponents">
+        <mat-option *ngFor="let opponent of opponents" [value]="opponent">
+          {{ opponent.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="div-btn" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!createMatchForm.valid">Save</button>
+      <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
