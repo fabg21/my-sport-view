@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BucketDestination } from '../../models/bucket';
+import { BucketDestination } from '../../models';
 
 export const UPLOAD_REQUEST = '[File Remote Upload Form] Request';
 export const UPLOAD_CANCEL = '[File Remote Upload Form] Cancel';

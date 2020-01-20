@@ -1,12 +1,6 @@
 <form [formGroup]="teamForm" (ngSubmit)="saveTeam(teamForm.value)">
   <mat-form-field class="full-width">
-    <input
-      matInput
-      id="name"
-      placeholder="Team name"
-      formControlName="name"
-      [errorStateMatcher]="matcher"
-    />
+    <input matInput id="name" placeholder="Team name" formControlName="name" [errorStateMatcher]="matcher" />
     <mat-error *ngIf="name.hasError('required')">
       Name is <strong>required</strong>
     </mat-error>
@@ -16,20 +10,10 @@
     <app-image></app-image>
   </app-file-uploader>
   <div class="div-btn" fxLayoutAlign="center center">
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="!teamForm.valid"
-    >
+    <button mat-raised-button color="primary" type="submit" [disabled]="!teamForm.valid">
       Save
     </button>
-    <button
-      mat-raised-button
-      color="primary"
-      class="btn-right"
-      (click)="cancel()"
-    >
+    <button mat-raised-button color="primary" class="btn-right" (click)="cancel()">
       Cancel
     </button>
   </div>

@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
-import { mapTo } from 'rxjs/operators';
-import { BucketDestination } from '../models/bucket';
+
+import { BucketDestination } from '../models';
 
 @Injectable()
 export class FileUploadService {

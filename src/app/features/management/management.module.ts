@@ -23,6 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SharedModule } from 'src/app/shared/shared.module';
+
 // import {AuthGuard} from 'src/app/core/guards/auth.guard';
 import { reducers, effects } from './store';
 
@@ -34,8 +36,6 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
-import { FileUploadModule } from 'src/app/core/file-upload/file-upload.module';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 // routes
 const routes: Routes = [
@@ -144,14 +144,9 @@ const routes: Routes = [
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,
-    FileUploadModule,
     SharedModule
   ],
-  declarations: [
-    ...fromContainers.containers,
-    ...fromComponents.components
-    // HasAnyAuthorityDirective
-  ],
+  declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
   providers: [...fromServices.services]
 })

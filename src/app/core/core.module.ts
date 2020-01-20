@@ -12,7 +12,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { TokenInterceptor } from './interceptors/TokenInterceptor';
 import { ErrorComponent } from './error/error.component';
 import { RootStateModule } from './+state/root-state.module';
-import { FileUploadModule } from './file-upload/file-upload.module';
 
 @NgModule({
   declarations: [ErrorComponent],
@@ -24,7 +23,6 @@ import { FileUploadModule } from './file-upload/file-upload.module';
     FormsModule,
     ReactiveFormsModule,
     LoginModule,
-    FileUploadModule,
     ShellModule,
     FlexLayoutModule,
     RootStateModule

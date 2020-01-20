@@ -11,10 +11,9 @@ import {
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import * as fromStore from '../../store';
-import { FileType } from '../../models';
+import { FileType, BucketDestination } from '../../models';
 import { map, filter, concatMap, concatAll } from 'rxjs/operators';
 import { FileUploadService } from '../../services';
-import { BucketDestination } from '../../models/bucket';
 
 @Component({
   selector: 'app-file-uploader',
