@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import {CalendarModel} from '../../models/calendar.model';
+import {MatchModel} from '../../models/match.model';
 
 export enum CalendarActionTypes {
   LOAD_CALENDARS = '[CALENDAR] Load Calendars',
@@ -10,6 +11,10 @@ export enum CalendarActionTypes {
   LOAD_CALENDAR_FROM_SEASON = '[CALENDAR] Load Calendar from Season',
   LOAD_CALENDAR_FROM_SEASON_FAIL = '[CALENDAR] Load Calendar from season Fail',
   LOAD_CALENDAR_FROM_SEASON_SUCCESS = '[CALENDAR] Load Calendar from Season Success',
+
+  ADD_MATCH_TO_CALENDAR = '[CALENDAR] Add Match to Calendar',
+  ADD_MATCH_TO_CALENDAR_FAIL = '[CALENDAR] Add Match to Calendar Fail',
+  ADD_MATCH_TO_CALENDAR_SUCCESS = '[CALENDAR] Add Match to Calendar Success',
 }
 
 export class LoadCalendars implements Action {
@@ -41,6 +46,21 @@ export class LoadCalendarFromSeasonSuccess implements Action {
   constructor(public  payload: {calendar: CalendarModel}) {}
 }
 
+export class AddMatchToCalendar implements Action {
+  readonly type = CalendarActionTypes.ADD_MATCH_TO_CALENDAR;
+  constructor(public  payload: { match: MatchModel }) {}
+}
+
+export class AddMatchToCalendarFail implements Action {
+  readonly type = CalendarActionTypes.ADD_MATCH_TO_CALENDAR_FAIL;
+  constructor(public  payload: { error: any }) {}
+}
+
+export class AddMatchToCalendarSuccess implements Action {
+  readonly type = CalendarActionTypes.ADD_MATCH_TO_CALENDAR_SUCCESS;
+  constructor(public  payload: {match: MatchModel}) {}
+}
+
 // action types
 export type CalendarsAction =
   LoadCalendars |
@@ -48,4 +68,7 @@ export type CalendarsAction =
   LoadCalendarsSuccess |
   LoadCalendarFromSeason |
   LoadCalendarFromSeasonFail |
-  LoadCalendarFromSeasonSuccess;
+  LoadCalendarFromSeasonSuccess |
+  AddMatchToCalendar |
+  AddMatchToCalendarFail |
+  AddMatchToCalendarSuccess;

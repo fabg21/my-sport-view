@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { BackendService } from '../../../core/services/backend.service';
 import { environment } from '../../../../environments/environment';
 import {CalendarModel} from '../models/calendar.model';
+import {MatchModel} from '../models/match.model';
+import {PlayerModel} from '../models/player.model';
 
 @Injectable()
 export class CalendarsService extends BackendService {

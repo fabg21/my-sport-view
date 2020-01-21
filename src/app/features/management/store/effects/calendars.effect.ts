@@ -12,6 +12,7 @@ export class CalendarsEffect {
   constructor(
     private actions$: Actions,
     private calendarService: fromServices.CalendarsService,
+    private matchesService: fromServices.MatchesService
   ) {}
 
   @Effect()
@@ -32,6 +33,17 @@ export class CalendarsEffect {
       this.calendarService.getCalendarFromSeason(payload.seasonId).pipe(
         map(calendar => new fromActions.LoadCalendarFromSeasonSuccess({calendar})),
         catchError(error => of(new fromActions.LoadCalendarFromSeasonFail(error)))
+      )
+    )
+  );
+
+  @Effect()
+  addMatchToCalendar$ = this.actions$.pipe(
+    ofType<fromActions.AddMatchToCalendar>(fromActions.CalendarActionTypes.ADD_MATCH_TO_CALENDAR),
+    switchMap(({payload}) =>
+      this.matchesService.createMatch(payload.match).pipe(
+        map(match => new fromActions.AddMatchToCalendarSuccess({match})),
+        catchError(error => of(new fromActions.AddMatchToCalendarFail(error)))
       )
     )
   );

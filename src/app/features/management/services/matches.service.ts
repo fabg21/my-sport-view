@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 import { BackendService } from '../../../core/services/backend.service';
 import { environment } from '../../../../environments/environment';
-import {MatchModel} from '../models/match.model';
+import { MatchModel } from '../models/match.model';
 
 @Injectable()
 export class MatchesService extends BackendService {
@@ -18,5 +18,9 @@ export class MatchesService extends BackendService {
 
   getAllMatchesFromCalendar(calendarId: string): Observable<MatchModel[]> {
     return this.get<MatchModel[]>(this.matchesFromCalendarUrl, false)
+  }
+
+  createMatch(match: MatchModel): Observable<MatchModel> {
+    return this.post<MatchModel>(this.matchesUrl, null, match);
   }
 }

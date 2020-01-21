@@ -9,4 +9,5 @@ export interface MatchModel {
   scoreFor?: number;
   scoreAgainst?: string;
   opponentId?: number;
+  calendarId?: number;
 }

@@ -3,19 +3,11 @@ import { ObservableInput } from 'observable-input/lib';
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
 
 import { SeasonModel } from '../../models/season.model';
 import { TeamModel } from '../../models/team.model';
 import { PlayerModel } from '../../models/player.model';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { MyErrorStateMatcher } from '../../../../core/utils/my-error-state-matcher';
 
 @Component({
   selector: 'app-season-form',

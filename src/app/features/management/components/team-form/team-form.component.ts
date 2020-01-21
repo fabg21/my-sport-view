@@ -3,32 +3,15 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  FormGroupDirective,
-  NgForm,
   Validators
 } from '@angular/forms';
 import { TeamModel } from '../../models/team.model';
-import { ErrorStateMatcher } from '@angular/material';
 
 import * as fromFileUpload from 'src/app/shared/features/file-upload/store';
 import { Store, select } from '@ngrx/store';
 import { map, filter, concatAll, concatMap } from 'rxjs/operators';
 import { FileUploadService } from 'src/app/shared/features/file-upload/services';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
-  }
-}
+import { MyErrorStateMatcher } from '../../../../core/utils/my-error-state-matcher';
 
 @Component({
   selector: 'app-team-form',

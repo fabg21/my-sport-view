@@ -1,0 +1,8 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+    <app-calendar (openDrawer)="openDrawer()"></app-calendar>
+  </mat-sidenav-content>
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="drawer" position="end">
+    <app-create-match-form (closeDrawer)="close()"></app-create-match-form>
+  </mat-sidenav>
+</mat-sidenav-container>

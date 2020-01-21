@@ -27,11 +27,37 @@
 
     <mat-form-field>
       <mat-label>Opponent</mat-label>
-      <mat-select formControlName="opponent" *ngIf="opponents$ | async as opponents">
-        <mat-option *ngFor="let opponent of opponents" [value]="opponent">
+      <mat-select formControlName="opponentId" *ngIf="opponents$ | async as opponents">
+        <mat-option *ngFor="let opponent of opponents" [value]="opponent.id">
           {{ opponent.name }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="opponentId.hasError('required')">
+        Opponent is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Start time</mat-label>
+      <input matInput atp-time-picker
+             formControlName="startTime"
+             type="time"
+             theme="material-purple"
+             onlyPM='true'
+             arrowStyle="{'background': 'material-purple', 'color': 'white'}"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Appointment hour</mat-label>
+      <input matInput atp-time-picker
+             formControlName="appointmentHour"
+             type="time"
+             theme="material-purple"
+             onlyPM='true'
+             arrowStyle="{'background': 'material-purple', 'color': 'white'}"
+
+      />
     </mat-form-field>
 
     <div class="div-btn" fxLayoutAlign="center center">

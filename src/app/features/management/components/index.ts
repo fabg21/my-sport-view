@@ -9,6 +9,7 @@ import {SeasonsDisplayComponent} from './seasons-display/seasons-display.compone
 import {SeasonFormComponent} from './season-form/season-form.component';
 import {PlayerSelectionComponent} from './player-selection/player-selection.component';
 import {MatchesListComponent} from './matches-list/matches-list.component';
+import {CalendarWorkspaceComponent} from './calendar-workspace/calendar-workspace.component';
 
 export const components: any[] = [
   SearchPlayerComponent,
@@ -22,6 +23,7 @@ export const components: any[] = [
   SeasonFormComponent,
   PlayerSelectionComponent,
   MatchesListComponent,
+  CalendarWorkspaceComponent
 ];
 
 export * from './search-player/search-player.component';
@@ -35,3 +37,4 @@ export * from './seasons-display/seasons-display.component';
 export * from './season-form/season-form.component';
 export * from './player-selection/player-selection.component';
 export * from './matches-list/matches-list.component';
+export * from './calendar-workspace/calendar-workspace.component';

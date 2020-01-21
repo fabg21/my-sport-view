@@ -16,7 +16,7 @@ import {
   MatInputModule,
   MatListModule,
   MatNativeDateModule,
-  MatSelectModule,
+  MatSelectModule, MatSidenavModule,
   MatSlideToggleModule,
   MatTableModule
 } from '@angular/material';
@@ -38,7 +38,8 @@ import * as fromContainers from './containers';
 
 // services
 import * as fromServices from './services';
-
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import {AmazingTimePickerModule} from 'amazing-time-picker';
 
 // routes
 const routes: Routes = [
@@ -116,7 +117,7 @@ const routes: Routes = [
   },
   {
     path: 'calendar',
-    component: fromContainers.CalendarComponent,
+    component: fromComponents.CalendarWorkspaceComponent,
     data: {
       authorities: ['ROLE_ADMIN']
     }
@@ -144,15 +145,16 @@ const routes: Routes = [
     MatSelectModule,
     MatChipsModule,
     MatSlideToggleModule,
-    MatBottomSheetModule,
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaterialTimepickerModule,
+    AmazingTimePickerModule,
+    MatSidenavModule,
     SharedModule
   ],
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components],
   providers: [...fromServices.services],
-  entryComponents: [CreateMatchFormComponent]
 })
 export class ManagementModule {}

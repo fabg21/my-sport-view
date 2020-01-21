@@ -64,6 +64,37 @@ export function reducer(
         selectedCalendarId: null
       };
     }
+
+    case fromCalendars.CalendarActionTypes.ADD_MATCH_TO_CALENDAR: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case fromCalendars.CalendarActionTypes.ADD_MATCH_TO_CALENDAR_SUCCESS: {
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [action.payload.match.calendarId]: {
+            ...state.entities[action.payload.match.calendarId],
+            matchs: [
+              ...state.entities[action.payload.match.calendarId].matchs,
+              action.payload.match
+            ]
+          }
+        }
+      };
+    }
+
+    case fromCalendars.CalendarActionTypes.ADD_MATCH_TO_CALENDAR_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      };
+    }
   }
   return state;
 }

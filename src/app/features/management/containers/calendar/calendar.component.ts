@@ -2,8 +2,7 @@ import { Observable } from 'rxjs';
 import {filter, map, switchMap, takeWhile, tap} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { MatBottomSheet } from '@angular/material';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 
 import { TeamModel } from '../../models/team.model';
 import * as fromStore from '../../store';
@@ -11,7 +10,6 @@ import { SeasonModel } from '../../models/season.model';
 import { CalendarModel } from '../../models/calendar.model';
 import { OpposingTeamModel } from '../../models/opposingTeam.model';
 import { CalendarsService } from '../../services';
-import { CreateMatchFormComponent } from '../../containers/create-match-form/create-match-form.component';
 
 @Component({
   selector: 'app-calendar',
@@ -20,19 +18,19 @@ import { CreateMatchFormComponent } from '../../containers/create-match-form/cre
 })
 export class CalendarComponent implements OnInit, OnDestroy {
 
+  @Output() openDrawer = new EventEmitter();
+
   teams$: Observable<TeamModel[]>;
   season$: Observable<SeasonModel | undefined>;
   calendars$: Observable<CalendarModel[]>;
   calendar$: Observable<CalendarModel>;
   selectedTeam: TeamModel;
   opposingTeams: {id: number, value: OpposingTeamModel};
-
   alive = true;
 
   constructor(
     private store: Store<fromStore.ManagementState>,
     private calendarsService: CalendarsService,
-    private bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
@@ -69,6 +67,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   addNextMatch() {
-    this.bottomSheet.open(CreateMatchFormComponent);
+    this.openDrawer.emit();
   }
 }
