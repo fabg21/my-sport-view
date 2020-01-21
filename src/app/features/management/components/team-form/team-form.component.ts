@@ -11,6 +11,9 @@ import { TeamModel } from '../../models/team.model';
 import { ErrorStateMatcher } from '@angular/material';
 
 import { BucketDestination } from 'src/app/shared/features/file-transfer/models';
+import * as fromFileUpload from 'src/app/shared/features/file-transfer/store';
+import { Store, select } from '@ngrx/store';
+import { map, tap, filter } from 'rxjs/operators';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -44,7 +47,16 @@ export class TeamFormComponent implements OnInit {
 
   public BucketDestinationRef = BucketDestination;
 
-  constructor(private formBuilder: FormBuilder) {}
+  public imgSrc$ = this.store.pipe(
+    select(fromFileUpload.selectUnOwnedFilesByUrl),
+    filter(x => !!x),
+    map(file => file.src)
+  );
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store<fromFileUpload.FileTransferState>
+  ) {}
 
   ngOnInit() {
     this.createForm();

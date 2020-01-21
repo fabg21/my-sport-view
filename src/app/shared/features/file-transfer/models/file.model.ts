@@ -5,6 +5,7 @@ export interface LoadedFile extends HasOwner {
   id: string;
   name: string;
   type: FileType;
+  addedAt: Date;
   src?: string;
   destination?: BucketDestination;
   description?: string;

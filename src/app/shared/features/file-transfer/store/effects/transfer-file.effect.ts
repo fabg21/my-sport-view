@@ -56,7 +56,6 @@ export class TransferFileEffect {
     map(({ payload }) => {
       const fileId = payload.file.id;
       const destination = payload.file.destination;
-      console.log('about to dispatch a getfile req with', fileId, destination);
       return new fromFileTransfer.GetFileRequest({ fileId, destination });
     })
   );
@@ -151,6 +150,7 @@ function getFileInfo(
     description: null,
     src: null,
     destination,
+    addedAt: new Date(),
     ...owner
   };
 }

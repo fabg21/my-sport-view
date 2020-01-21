@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
+import * as fromRouter from 'src/app/core/+state/selectors/router.selectors';
 import * as fromReducer from '../reducers';
 
 export const selectTransferFileState = createSelector(
@@ -94,3 +95,17 @@ export const selectFilesByOwnerId = (ownerId: string) =>
   createSelector(selectFiles, files =>
     files.filter(file => !!file.owned && file.ownerId === ownerId)
   );
+
+export const selectUnOwnedFiles = createSelector(selectFiles, files =>
+  files.filter(file => !file.owned)
+);
+
+export const selectUnOwnedFilesByUrl = createSelector(
+  selectUnOwnedFiles,
+  fromRouter.getUrl,
+  (files, url) =>
+    !!url &&
+    files
+      .filter(file => url.includes(file.ownerId))
+      .sort((fA, fB) => fB.addedAt.getTime() - fA.addedAt.getTime())[0]
+);
