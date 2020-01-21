@@ -1,5 +1,3 @@
-import { LocalFile } from '../models';
-
 export function generateFileList(): FileList {
   return {
     length: 1,
@@ -8,11 +6,15 @@ export function generateFileList(): FileList {
   };
 }
 
-export function generateFile(content = [''], fileName = 'test.txt', options = {}): File {
+export function generateFile(
+  content = [''],
+  fileName = 'test.txt',
+  options = {}
+): File {
   return new File(content, fileName, options);
 }
 
-export function generateLocalFile(file?: File): LocalFile {
+export function generateLocalFile(file?: File): any {
   const { name: id, name, size, type } = file ? file : generateFile();
   return { id, name, size, type };
 }

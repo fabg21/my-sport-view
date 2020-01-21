@@ -1,13 +1,14 @@
 import { Action } from '@ngrx/store';
 import { BucketDestination } from '../../models';
+import { LoadedFile } from '../../models/file.model';
 
-export const UPLOAD_REQUEST = '[File Remote Upload Form] Request';
-export const UPLOAD_CANCEL = '[File Remote Upload Form] Cancel';
-export const UPLOAD_RESET = '[File Remote Upload Form] Reset';
-export const UPLOAD_STARTED = '[File Remote Upload API] Started';
-export const UPLOAD_PROGRESS = '[File Remote Upload API] Progress';
-export const UPLOAD_FAILURE = '[File Remote Upload API] Failure';
-export const UPLOAD_COMPLETED = '[File Remote Upload API] Success';
+export const UPLOAD_REQUEST = '[File Upload Form] Request';
+export const UPLOAD_CANCEL = '[File Upload Form] Cancel';
+export const UPLOAD_RESET = '[File Upload Form] Reset';
+export const UPLOAD_STARTED = '[File Upload API] Started';
+export const UPLOAD_PROGRESS = '[File Upload API] Progress';
+export const UPLOAD_FAILURE = '[File Upload API] Failure';
+export const UPLOAD_COMPLETED = '[File Upload API] Success';
 
 export class UploadRequest implements Action {
   readonly type = UPLOAD_REQUEST;
@@ -44,11 +45,7 @@ export class UploadFailure implements Action {
 
 export class UploadCompleted implements Action {
   readonly type = UPLOAD_COMPLETED;
-  constructor(
-    public payload: {
-      file: { owner: string; etag: string; id: string; name: string };
-    }
-  ) {}
+  constructor(public payload: { file: LoadedFile }) {}
 }
 
 export type UploadActions =

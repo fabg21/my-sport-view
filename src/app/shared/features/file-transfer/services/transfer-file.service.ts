@@ -7,7 +7,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { BucketDestination } from '../models';
 
 @Injectable()
-export class FileUploadService {
+export class TransferFileService {
   private API_UPLOAD_BASE_URL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
@@ -34,7 +34,7 @@ export class FileUploadService {
     return this.http.request(req);
   }
 
-  public getFileUrl(fileName: string, fileCategory: string) {
+  public getFileUrl(fileName: string, fileCategory: BucketDestination) {
     const url = `${this.API_UPLOAD_BASE_URL}/download/${fileCategory}/${fileName}`;
     return this.http.get(url, { responseType: 'text' }).pipe(mapTo(url));
   }

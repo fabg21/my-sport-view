@@ -1,3 +1,5 @@
+import { map, filter } from 'rxjs/operators';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -7,10 +9,9 @@ import {
 } from '@angular/forms';
 import { TeamModel } from '../../models/team.model';
 
-import * as fromFileUpload from 'src/app/shared/features/file-upload/store';
+import { BucketDestination } from 'src/app/shared/features/file-transfer/models';
+import * as fromFileUpload from 'src/app/shared/features/file-transfer/store';
 import { Store, select } from '@ngrx/store';
-import { map, filter, concatAll, concatMap } from 'rxjs/operators';
-import { FileUploadService } from 'src/app/shared/features/file-upload/services';
 import { MyErrorStateMatcher } from '../../../../core/utils/my-error-state-matcher';
 
 @Component({
@@ -19,14 +20,6 @@ import { MyErrorStateMatcher } from '../../../../core/utils/my-error-state-match
   styleUrls: ['./team-form.component.scss']
 })
 export class TeamFormComponent implements OnInit {
-  public imgSrc$ = this.store$.pipe(
-    select(fromFileUpload.selectFiles),
-    map(Object.keys),
-    filter(arr => arr.length > 0),
-    concatAll(),
-    concatMap(fileName => this.fileUpload.getFileUrl(fileName, 'avatars'))
-  );
-
   @Input()
   team: TeamModel;
 
@@ -36,10 +29,17 @@ export class TeamFormComponent implements OnInit {
   teamForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
+  public BucketDestinationRef = BucketDestination;
+
+  public imgSrc$ = this.store.pipe(
+    select(fromFileUpload.selectUnOwnedFilesByUrl),
+    filter(x => !!x),
+    map(file => file.src)
+  );
+
   constructor(
     private formBuilder: FormBuilder,
-    private store$: Store<fromFileUpload.FileUploadState>,
-    private fileUpload: FileUploadService
+    private store: Store<fromFileUpload.FileTransferState>
   ) {}
 
   ngOnInit() {

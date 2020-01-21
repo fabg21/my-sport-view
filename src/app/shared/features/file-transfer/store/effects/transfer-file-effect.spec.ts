@@ -4,21 +4,21 @@ import { provideMockActions } from '@ngrx/effects/testing';
 
 import { TestBed } from '@angular/core/testing';
 
-import { UploadFileEffect } from './upload-file.effect';
+import { TransferFileEffect } from './transfer-file.effect';
 import { FileUploadService } from '../../services';
 
 const fileUploadServiceMock = {
-  localUploadFile: jest.fn()
+  localUploadFile: () => null
 };
 
-describe('UploadFileEffect', () => {
-  let effects: UploadFileEffect;
+describe('TransferFileEffect', () => {
+  let effects: TransferFileEffect;
   let actions: Observable<any>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        UploadFileEffect,
+        TransferFileEffect,
         provideMockActions(() => actions),
         {
           provide: FileUploadService,
@@ -28,7 +28,7 @@ describe('UploadFileEffect', () => {
     })
       .compileComponents()
       .then(() => {
-        effects = TestBed.get(UploadFileEffect);
+        effects = TestBed.get(TransferFileEffect);
         actions = TestBed.get(Actions);
       });
   });
