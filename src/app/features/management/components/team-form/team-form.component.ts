@@ -10,10 +10,7 @@ import {
 import { TeamModel } from '../../models/team.model';
 import { ErrorStateMatcher } from '@angular/material';
 
-import * as fromFileUpload from 'src/app/shared/features/file-upload/store';
-import { Store, select } from '@ngrx/store';
-import { map, filter, concatAll, switchMap } from 'rxjs/operators';
-import { FileUploadService } from 'src/app/shared/features/file-upload/services';
+import { BucketDestination } from 'src/app/shared/features/file-transfer/models';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,14 +33,6 @@ class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./team-form.component.scss']
 })
 export class TeamFormComponent implements OnInit {
-  public imgSrc$ = this.store$.pipe(
-    select(fromFileUpload.selectFiles),
-    map(Object.keys),
-    filter(arr => arr.length > 0),
-    concatAll(),
-    switchMap(fileName => this.fileUpload.getFileUrl(fileName, 'avatars'))
-  );
-
   @Input()
   team: TeamModel;
 
@@ -53,11 +42,9 @@ export class TeamFormComponent implements OnInit {
   teamForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private store$: Store<fromFileUpload.FileUploadState>,
-    private fileUpload: FileUploadService
-  ) {}
+  public BucketDestinationRef = BucketDestination;
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();

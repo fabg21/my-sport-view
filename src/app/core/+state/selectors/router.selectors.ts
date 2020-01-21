@@ -8,7 +8,8 @@ export const getRouterState = createFeatureSelector<
 
 export const getRouterUrlState = createSelector(
   getRouterState,
-  (state: fromRouter.RouterReducerState<RouterStateUrl>) => state.state
+  (state: fromRouter.RouterReducerState<RouterStateUrl>) =>
+    !!state && state.state
 );
 
 export const getUrl = createSelector(

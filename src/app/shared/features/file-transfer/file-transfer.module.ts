@@ -34,7 +34,7 @@ const MATERIAL_COMPONENTS = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('uploads', fromStore.reducers),
+    StoreModule.forFeature('transfers', fromStore.reducers),
     EffectsModule.forFeature(fromStore.effects),
     MATERIAL_COMPONENTS
   ],
@@ -42,4 +42,4 @@ const MATERIAL_COMPONENTS = [
   declarations: [...fromContainers.containers, ...fromComponents.components],
   exports: [...fromContainers.containers, ...fromComponents.components]
 })
-export class FileUploadModule {}
+export class FileTransferModule {}

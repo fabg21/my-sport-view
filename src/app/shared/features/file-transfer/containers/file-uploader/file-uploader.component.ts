@@ -1,4 +1,4 @@
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 
 import {
@@ -10,10 +10,8 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import * as fromStore from '../../store';
 import { FileType, BucketDestination } from '../../models';
-import { map, filter, concatMap, concatAll, tap } from 'rxjs/operators';
-import { FileUploadService } from '../../services';
+import * as fromStore from '../../store';
 
 @Component({
   selector: 'app-file-uploader',
@@ -37,20 +35,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  public files$ = this.store$.pipe(
-    select(fromStore.selectFiles),
-    map(Object.keys),
-    filter(arr => arr.length > 0),
-    concatAll(),
-    tap(console.log),
-    concatMap(fileName => this.service.getFileUrl(fileName, 'avatars')),
-    tap(console.log)
-  );
-
-  constructor(
-    private store$: Store<fromStore.UploadState>,
-    private service: FileUploadService
-  ) {}
+  constructor(private store$: Store<fromStore.FileTransferState>) {}
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
