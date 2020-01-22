@@ -2,6 +2,8 @@ export const AcceptedFileTypes: FileType[] = [
   'png',
   'pdf',
   'jpeg',
+  'jpg',
+  'JPG',
   'txt',
   'doc',
   'docx',
@@ -13,6 +15,8 @@ export type FileType =
   | 'png'
   | 'pdf'
   | 'jpeg'
+  | 'jpg'
+  | 'JPG'
   | 'txt'
   | 'doc'
   | 'docx'
