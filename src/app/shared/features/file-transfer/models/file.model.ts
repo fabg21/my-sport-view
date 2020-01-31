@@ -1,11 +1,11 @@
-import { FileType } from './file-types';
 import { BucketDestination } from './bucket';
 
 export interface LoadedFile extends HasOwner {
   id: string;
   name: string;
-  type: FileType;
-  addedAt: Date;
+  type: string; //FileType;
+  updatedAt: Date;
+  size: number;
   src?: string;
   destination?: BucketDestination;
   description?: string;
@@ -17,7 +17,11 @@ export interface HasOwner {
 }
 
 export interface UploadedFileResponse {
-  etag: string;
-  fileName: string;
-  originalName: string;
+  id: string;
+  name: string;
+  encoding: string;
+  mimetype: string;
+  size: string;
+  updatedAt: Date;
+  fileSrc?: string;
 }

@@ -107,5 +107,5 @@ export const selectUnOwnedFilesByUrl = createSelector(
     !!url &&
     files
       .filter(file => url.includes(file.ownerId))
-      .sort((fA, fB) => fB.addedAt.getTime() - fA.addedAt.getTime())[0]
+      .sort((fA, fB) => fB.updatedAt.getTime() - fA.updatedAt.getTime())[0]
 );

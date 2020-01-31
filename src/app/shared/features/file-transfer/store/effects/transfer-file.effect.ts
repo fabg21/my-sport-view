@@ -7,8 +7,7 @@ import {
   map,
   catchError,
   withLatestFrom,
-  filter,
-  tap
+  filter
 } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
@@ -17,7 +16,6 @@ import { HttpEvent, HttpEventType, HttpResponse } from '@angular/common/http';
 import * as fromRootState from 'src/app/core/+state';
 import { TransferFileService } from '../../services/transfer-file.service';
 import {
-  AcceptedFileTypes,
   HasOwner,
   UploadedFileResponse,
   BucketDestination,
@@ -39,118 +37,92 @@ export class TransferFileEffect {
   uploadRequestEffect$: Observable<Action> = this.actions$.pipe(
     ofType(fromFileTransfer.UPLOAD_REQUEST),
     withLatestFrom(this.store$.pipe(select(fromRootState.getUrl))),
-    map(([{ payload }, url]) => setFileOwnership(payload, url)),
+    map(([{ payload }, url]) => this.setFileOwnership(payload, url)),
     concatMap(payload =>
       this.uploadService.uploadFile(payload.file, payload.destination).pipe(
         takeUntil(this.actions$.pipe(ofType(fromFileTransfer.UPLOAD_CANCEL))),
-        map(getActionFromHttpEvent(payload.owner, payload.destination)),
+        map(this.getActionFromHttpEvent(payload.owner, payload.destination)),
         catchError(error => of(error))
       )
     )
   );
 
-  @Effect()
-  getFileSrcOnUploadSuccessEffect$: Observable<Action> = this.actions$.pipe(
-    ofType(fromFileTransfer.UPLOAD_COMPLETED),
-    filter(({ payload }) => !!payload.file && !!payload.file.id),
-    map(({ payload }) => {
-      const fileId = payload.file.id;
-      const destination = payload.file.destination;
-      return new fromFileTransfer.GetFileRequest({ fileId, destination });
-    })
-  );
+  // @Effect()
+  // getFileSrcOnUploadSuccessEffect$: Observable<Action> = this.actions$.pipe(
+  //   ofType(fromFileTransfer.UPLOAD_COMPLETED),
+  //   filter(({ payload }) => !!payload.file && !!payload.file.id),
+  //   map(({ payload }) => {
+  //     const fileId = payload.file.id;
+  //     const destination = payload.file.destination;
+  //     return new fromFileTransfer.GetFileRequest({ fileId, destination });
+  //   })
+  // );
 
-  @Effect()
-  getFileSrcEffect$: Observable<Action> = this.actions$.pipe(
-    ofType<fromFileTransfer.GetFileRequest>(fromFileTransfer.GET_FILE_REQUEST),
-    concatMap(({ payload }) =>
-      this.uploadService.getFileUrl(payload.fileId, payload.destination).pipe(
-        map(
-          fileSrc =>
-            new fromFileTransfer.GetFileRequestSuccess({
-              fileSrc,
-              fileId: payload.fileId
+  private getActionFromHttpEvent = (
+    owner: HasOwner,
+    destination: BucketDestination
+  ) => (event: HttpEvent<any>) => {
+    switch (event.type) {
+      case HttpEventType.Sent: {
+        return new fromFileTransfer.UploadStarted();
+      }
+      case HttpEventType.DownloadProgress:
+      case HttpEventType.UploadProgress: {
+        return new fromFileTransfer.UploadProgress({
+          progress: Math.round((100 * event.loaded) / event.total)
+        });
+      }
+      case HttpEventType.ResponseHeader:
+      case HttpEventType.Response: {
+        return event.status === 201
+          ? new fromFileTransfer.UploadCompleted({
+              file: this.getFileInfo(
+                event as HttpResponse<UploadedFileResponse>,
+                owner,
+                destination
+              )
             })
-        ),
-        catchError(error =>
-          of(new fromFileTransfer.GetFileRequestFailure(error))
-        )
-      )
-    )
-  );
-}
-
-const getActionFromHttpEvent = (
-  owner: HasOwner,
-  destination: BucketDestination
-) => (event: HttpEvent<any>) => {
-  switch (event.type) {
-    case HttpEventType.Sent: {
-      return new fromFileTransfer.UploadStarted();
+          : new fromFileTransfer.UploadFailure({
+              error: event.statusText
+            });
+      }
+      default: {
+        return new fromFileTransfer.UploadFailure({
+          error: `Unknown Event : ${JSON.stringify(event)}`
+        });
+      }
     }
-    case HttpEventType.DownloadProgress:
-    case HttpEventType.UploadProgress: {
-      return new fromFileTransfer.UploadProgress({
-        progress: Math.round((100 * event.loaded) / event.total)
-      });
-    }
-    case HttpEventType.ResponseHeader:
-    case HttpEventType.Response: {
-      return event.status === 201
-        ? new fromFileTransfer.UploadCompleted({
-            file: getFileInfo(
-              event as HttpResponse<UploadedFileResponse>,
-              owner,
-              destination
-            )
-          })
-        : new fromFileTransfer.UploadFailure({
-            error: event.statusText
-          });
-    }
-    default: {
-      return new fromFileTransfer.UploadFailure({
-        error: `Unknown Event : ${JSON.stringify(event)}`
-      });
-    }
-  }
-};
-
-const setFileOwnership = (
-  payload: any,
-  url: string
-): { file: File; destination: BucketDestination; owner: HasOwner } => {
-  return !!payload.hasOwner && !!payload.hasOwner.ownerId
-    ? { ...payload, owner: { owned: true, ownerId: payload.ownerId } }
-    : { ...payload, owner: { owned: false, ownerId: url } };
-};
-
-function getFileInfo(
-  event: HttpResponse<UploadedFileResponse>,
-  owner: HasOwner,
-  destination: BucketDestination
-): LoadedFile {
-  if (!event.body) {
-    return;
-  }
-  const { etag, fileName, originalName } = event.body;
-  if (!etag) {
-    throw new Error('the file is not well formed');
-  }
-  const type: any = fileName.split('.')[1];
-
-  if (!AcceptedFileTypes.includes(type)) {
-    throw new Error('the file has invalid extension');
-  }
-
-  return {
-    id: fileName,
-    name: originalName,
-    type,
-    description: null,
-    src: null,
-    destination,
-    addedAt: new Date(),
-    ...owner
   };
+
+  private setFileOwnership(
+    payload: any,
+    url: string
+  ): { file: File; destination: BucketDestination; owner: HasOwner } {
+    return !!payload.hasOwner && !!payload.hasOwner.ownerId
+      ? { ...payload, owner: { owned: true, ownerId: payload.ownerId } }
+      : { ...payload, owner: { owned: false, ownerId: url } };
+  }
+
+  private getFileInfo(
+    event: HttpResponse<UploadedFileResponse>,
+    owner: HasOwner,
+    destination: BucketDestination
+  ): LoadedFile {
+    if (!event.body) {
+      return;
+    }
+    const { name, id, mimetype: type, size, updatedAt } = event.body;
+    const parsedSize = Number.parseInt(size);
+    return {
+      id,
+      name,
+      type,
+      size: parsedSize,
+      description: null,
+      src: this.uploadService.getFileUrl(id, destination),
+      destination,
+      updatedAt: new Date(updatedAt),
+      ...owner
+    };
+  }
 }
